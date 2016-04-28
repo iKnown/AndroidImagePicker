@@ -81,7 +81,7 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
 
     try {
       PicItemCheckedView view = ((PicItemCheckedView) convertView);
-      long picId = images.get(position).fileId;
+      long picId = allMedias.get(position).fileId;
       if (picId < 0) {
         throw new RuntimeException("the pic id is not num");
       }
@@ -95,7 +95,7 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
         path = imageInfo.thumbPath;
       }
 
-      if (hasCheckedImages.contains(images.get(position))) {
+      if (hasCheckedImages.contains(allMedias.get(position))) {
         view.setChecked(true);
       } else {
         view.setChecked(false);
@@ -114,13 +114,13 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
       boolean isChecked = item.isChecked();
 
       if(isChecked) {
-        hasCheckedImages.remove(images.get(position));
+        hasCheckedImages.remove(allMedias.get(position));
         item.setChecked(false);
       }
       else{
         resetImagesChecked();
         hasCheckedView.add(item);
-        hasCheckedImages.add(images.get(position));
+        hasCheckedImages.add(allMedias.get(position));
         item.setChecked(true);
       }
 

@@ -52,7 +52,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   private View albumView;
   protected TextView allImagesTv;
   protected TitleView gsTitleView;
-  protected ArrayList<MediaInfo> images = new ArrayList<MediaInfo>();
+  protected ArrayList<MediaInfo> allMedias = new ArrayList<MediaInfo>();
   protected ArrayList<MediaInfo> hasCheckedImages = new ArrayList<MediaInfo>();
   protected IImageChoosePresenter imageChoosePresenter;
   private ImageGridAdapter imageGridAdapter;
@@ -80,8 +80,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     super.onCreate(savedInstanceState);
     this.mContext = this;
     setContentView(R.layout.abs_image_select_layout);
-    images = MediaFileUtil.getAllImageFiles(ZApplication.getApplication());
-    //images = MediaFileUtil.getAllVideoFiles(ZApplication.getApplication());
+    allMedias = MediaFileUtil.getAllMediaFiles(ZApplication.getApplication());
     imageChoosePresenter = new ImageChoosePresenterCompl(this, this);
     initTitleView(gsTitleView = (TitleView) this.findViewById(R.id.titlebar));
     initBottomView(this.findViewById(R.id.bottomView));
@@ -147,8 +146,8 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         AlbumInfo albumInfo = (AlbumInfo) adapterView.getItemAtPosition(position);
-        images.clear();
-        images = albumInfo.images;
+        allMedias.clear();
+        allMedias = albumInfo.images;
         imageGridAdapter.notifyDataSetChanged();
         /**
          * scroll to top
@@ -199,12 +198,12 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
     @Override
     public int getCount() {
-      return images.size();
+      return allMedias.size();
     }
 
     @Override
     public Object getItem(int id) {
-      return images.get(id);
+      return allMedias.get(id);
     }
 
     @Override
@@ -214,7 +213,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-      return doGetViewWork(position, convertView, images.get(position));
+      return doGetViewWork(position, convertView, allMedias.get(position));
     }
   }
 }

@@ -69,7 +69,7 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     try {
       PicItemCheckedView view = ((PicItemCheckedView) convertView);
-      long picId = images.get(position).fileId;
+      long picId = allMedias.get(position).fileId;
       if (picId < 0) {
         throw new RuntimeException("the pic id is not num");
       }
@@ -84,7 +84,7 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
       simpleDraweeView.setImageURI(Uri.parse(ImageFilePathUtil.getImgUrl(path)));
 
-      if (hasCheckedImages.contains(images.get(position))) {
+      if (hasCheckedImages.contains(allMedias.get(position))) {
         view.setChecked(true);
       } else {
         view.setChecked(false);
@@ -101,10 +101,10 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
       PicItemCheckedView item = (PicItemCheckedView)view;
       boolean isChecked = item.isChecked();
       item.setChecked(!isChecked);
-      if(isChecked && hasCheckedImages.contains(images.get(position)))
-        hasCheckedImages.remove(images.get(position));
-      else if(!isChecked && !hasCheckedImages.contains(images.get(position))){
-        hasCheckedImages.add(images.get(position));
+      if(isChecked && hasCheckedImages.contains(allMedias.get(position)))
+        hasCheckedImages.remove(allMedias.get(position));
+      else if(!isChecked && !hasCheckedImages.contains(allMedias.get(position))){
+        hasCheckedImages.add(allMedias.get(position));
       }
 
       if(hasCheckedImages.size() > 0 ) {

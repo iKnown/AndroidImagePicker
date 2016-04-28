@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
+import android.support.v4.content.CursorLoader;
 import android.text.TextUtils;
 import android.util.Log;
 import com.iknow.imageselect.model.AlbumInfo;
@@ -352,5 +354,52 @@ public class MediaFileUtil {
             e.printStackTrace();
         }
         return videos;
+    }
+
+    public static ArrayList<MediaInfo> getAllMediaFiles(Context mContext){
+        MediaInfo mediaInfo;
+        ArrayList<MediaInfo> allMediasList = new ArrayList<>();
+
+        String[] projection = {
+            MediaStore.Files.FileColumns._ID,
+            MediaStore.Files.FileColumns.DATA,
+            MediaStore.Files.FileColumns.DATE_ADDED,
+            MediaStore.Files.FileColumns.MEDIA_TYPE,
+            MediaStore.Files.FileColumns.MIME_TYPE,
+            MediaStore.Files.FileColumns.TITLE
+        };
+
+        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+                            + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
+                            + " OR "
+                            + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+                            + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
+
+        Uri queryUri = MediaStore.Files.getContentUri("external");
+
+        try {
+            CursorLoader cursorLoader = new CursorLoader(
+                mContext,
+                queryUri,
+                projection,
+                selection,
+                null, // Selection args (none).
+                MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
+            );
+
+            Cursor cursor = cursorLoader.loadInBackground();
+
+            while (cursor.moveToNext()) {
+                mediaInfo = new MediaInfo();
+                mediaInfo.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
+                mediaInfo.createTime = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATE_ADDED));
+                allMediasList.add(mediaInfo);
+            }
+            cursor.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return allMediasList;
     }
 }
