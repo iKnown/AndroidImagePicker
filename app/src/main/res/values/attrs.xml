@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <declare-styleable name="TitleView">
+
+        <!-- Text to display for title. -->
+        <attr name="title_text" format="string" localization="suggested" />
+        <!-- Text appearance to display for title. -->
+        <attr name="title_text_appearance" format="integer" />
+
+        <!-- When true, this widget show right button background. -->
+        <attr name="is_show_left_button" format="boolean" />
+
+        <attr name="title_show_right_btn_bg" format="boolean" />
+        <!-- When true, this widget show right middle background. -->
+        <attr name="title_show_middle_btn_bg" format="boolean" />
+        <!-- Text to display for left button. -->
+        <attr name="title_btn_left_text" format="string" localization="suggested" />
+        <!-- Drawable to be drawn on left button. -->
+        <attr name="title_btn_left_drawable" format="reference" />
+        <!-- Text appearance to display for left button. -->
+        <attr name="title_btn_left_text_appearance" format="integer" />
+        <!-- Width of the keft button. -->
+        <attr name="title_btn_left_width" format="dimension" />
+        <!-- Height of the right button. -->
+        <attr name="title_btn_left_height" format="dimension" />
+        <!-- A drawable to use as left button's background. -->
+        <attr name="title_btn_left_bg" format="reference" />
+
+        <!-- Text to display for right button. -->
+        <attr name="is_show_right_button" format="boolean" />
+
+        <attr name="title_btn_right_text" format="string" localization="suggested" />
+        <!-- Drawable to be drawn on right button. -->
+        <attr name="title_btn_right_drawable" format="reference" />
+        <!-- Text appearance to display for right button. -->
+        <attr name="title_btn_right_text_appearance" format="integer" />
+        <!-- Width of the right button. -->
+        <attr name="title_btn_right_width" format="dimension" />
+        <!-- Height of the right button. -->
+        <attr name="title_btn_right_height" format="dimension" />
+        <!-- A drawable to use as right button's background. -->
+        <attr name="title_btn_right_bg" format="reference" />
+        <!-- The padding between the drawables and the text for right button. -->
+        <attr name="title_btn_right_text_padding" format="dimension" />
+
+        <attr name="title_leftbutton_back" format="boolean" />
+    </declare-styleable>
+
+</resources>

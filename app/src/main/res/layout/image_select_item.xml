@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/img_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        fresco:placeholderImage="@color/colorAccent"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:id="@+id/album_pic_select_panel"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:layout_gravity="top|right"
+        >
+        <ImageView
+            android:id="@+id/select"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/img_pic_selected"
+            android:visibility="gone" />
+        <ImageView
+            android:id="@+id/unselect"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/img_pic_unselected"
+            />
+    </RelativeLayout>
+</FrameLayout>
