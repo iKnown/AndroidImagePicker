@@ -147,7 +147,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
       @Override public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         AlbumInfo albumInfo = (AlbumInfo) adapterView.getItemAtPosition(position);
         allMedias.clear();
-        allMedias = albumInfo.images;
+        allMedias = albumInfo.medias;
         imageGridAdapter.notifyDataSetChanged();
         /**
          * scroll to top

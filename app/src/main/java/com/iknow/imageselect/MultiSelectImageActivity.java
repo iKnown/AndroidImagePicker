@@ -7,7 +7,12 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;
@@ -82,7 +87,15 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
         path = imageInfo.thumbPath;
       }
 
-      simpleDraweeView.setImageURI(Uri.parse(ImageFilePathUtil.getImgUrl(path)));
+      ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageFilePathUtil.getImgUrl(path)))
+      .setResizeOptions(new ResizeOptions(100, 100)).build();
+
+      PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+          .setOldController(simpleDraweeView.getController())
+          .setImageRequest(request)
+          .build();
+
+      simpleDraweeView.setController(controller);
 
       if (hasCheckedImages.contains(allMedias.get(position))) {
         view.setChecked(true);

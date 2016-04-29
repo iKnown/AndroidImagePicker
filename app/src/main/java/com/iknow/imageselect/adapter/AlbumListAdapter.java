@@ -8,12 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
-import java.io.File;
 import java.util.LinkedList;
 
 /**
@@ -58,16 +62,23 @@ public class AlbumListAdapter extends BaseAdapter{
       h = (ViewHolder) convertView.getTag();
     }
 
-    MediaInfo imageInfo = albumInfo.images.get(0);
+    MediaInfo imageInfo = albumInfo.medias.get(0);
     String path = imageInfo.fileName;
     if(!TextUtils.isEmpty(imageInfo.thumbPath)){
       path = imageInfo.thumbPath;
     }
 
-    File mediaFile = new File(path);
-    h.albumCover.setImageURI(Uri.parse(ImageFilePathUtil.getImgUrl(path)));
+    ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageFilePathUtil.getImgUrl(path)))
+        .setResizeOptions(new ResizeOptions(100, 100)).build();
+
+    PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+        .setOldController(h.albumCover.getController())
+        .setImageRequest(request)
+        .build();
+    h.albumCover.setController(controller);
+
     h.albumName.setText(albumInfo.name);
-    h.albumNumber.setText(""+albumInfo.images.size());
+    h.albumNumber.setText(""+albumInfo.medias.size());
 
     return convertView;
   }

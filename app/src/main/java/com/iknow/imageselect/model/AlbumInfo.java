@@ -10,5 +10,5 @@ import java.util.ArrayList;
  */
 
 public class AlbumInfo extends MediaInfo {
-    public ArrayList<MediaInfo> images;
+    public ArrayList<MediaInfo> medias;
 }

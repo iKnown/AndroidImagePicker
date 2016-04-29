@@ -72,7 +72,7 @@ public class MediaFileUtil {
               for (int i = album.size() - 1; i >= 0; i--) {
                   list.add(album.get(i));
               }
-              albumInfo.images = list;
+              albumInfo.medias = list;
 
               if (albumInfo.filePath.endsWith("DCIM/Camera")) {
                 albumInfo.name = "相册";
@@ -98,51 +98,57 @@ public class MediaFileUtil {
 
         MediaInfo imageInfo = null;
         File file = null;
-        if (cursor.moveToFirst()) {
-            do {
-                int _id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID));
-                String path = cursor.getString(cursor.getColumnIndex(_path));
-                String album = cursor.getString(cursor.getColumnIndex(_album));
-                String time = cursor.getString(cursor.getColumnIndex(_time));
-                int rotate = cursor.getInt(cursor.getColumnIndex(_rotate));
+        try {
 
-                file = new File(path);
-                if (!file.exists() || file.length() == 0) {
-                    continue;
-                }
+            if (cursor.moveToFirst()) {
+                do {
+                    int _id = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID));
+                    String path = cursor.getString(cursor.getColumnIndex(_path));
+                    String album = cursor.getString(cursor.getColumnIndex(_album));
+                    String time = cursor.getString(cursor.getColumnIndex(_time));
+                    int rotate = cursor.getInt(cursor.getColumnIndex(_rotate));
 
-                String subPath = path.substring(0, path.lastIndexOf("/"));
+                    file = new File(path);
+                    if (!file.exists() || file.length() == 0) {
+                        continue;
+                    }
 
-                if (albumsInfos.containsKey(getAlbumKey(subPath, album))) {
-                    LinkedList<MediaInfo> albums = albumsInfos
+                    String subPath = path.substring(0, path.lastIndexOf("/"));
+
+                    if (albumsInfos.containsKey(getAlbumKey(subPath, album))) {
+                        LinkedList<MediaInfo> albums = albumsInfos
                             .remove(getAlbumKey(subPath, album));
-                    imageInfo = new MediaInfo();
-                    imageInfo.fileId = _id;
-                    imageInfo.filePath = subPath;
-                    imageInfo.fileName = path;
-                    imageInfo.createTime = time;
-                    imageInfo.rotate = rotate;
-                    if(thumbInfos.containsKey(_id)){
-                        imageInfo.thumbPath = thumbInfos.get(_id);
+                        imageInfo = new MediaInfo();
+                        imageInfo.fileId = _id;
+                        imageInfo.filePath = subPath;
+                        imageInfo.fileName = path;
+                        imageInfo.createTime = time;
+                        imageInfo.rotate = rotate;
+                        if(thumbInfos.containsKey(_id)){
+                            imageInfo.thumbPath = thumbInfos.get(_id);
+                        }
+                        albums.add(imageInfo);
+                        albumsInfos.put(getAlbumKey(subPath, album), albums);
+                    } else {
+                        LinkedList<MediaInfo> albums = new LinkedList<MediaInfo>();
+                        imageInfo = new MediaInfo();
+                        imageInfo.fileId = _id;
+                        imageInfo.filePath = subPath;
+                        imageInfo.fileName = path;
+                        imageInfo.createTime = time;
+                        imageInfo.rotate = rotate;
+                        if(thumbInfos.containsKey(_id)){
+                            imageInfo.thumbPath = thumbInfos.get(_id);
+                        }
+                        albums.add(imageInfo);
+                        albumsInfos.put(getAlbumKey(subPath, album), albums);
                     }
-                    albums.add(imageInfo);
-                    albumsInfos.put(getAlbumKey(subPath, album), albums);
-                } else {
-                    LinkedList<MediaInfo> albums = new LinkedList<MediaInfo>();
-                    imageInfo = new MediaInfo();
-                    imageInfo.fileId = _id;
-                    imageInfo.filePath = subPath;
-                    imageInfo.fileName = path;
-                    imageInfo.createTime = time;
-                    imageInfo.rotate = rotate;
-                    if(thumbInfos.containsKey(_id)){
-                        imageInfo.thumbPath = thumbInfos.get(_id);
-                    }
-                    albums.add(imageInfo);
-                    albumsInfos.put(getAlbumKey(subPath, album), albums);
-                }
-            } while (cursor.moveToNext());
+                } while (cursor.moveToNext());
+            }
+        }catch(Exception e){
+           e.printStackTrace();
         }
+
         return albumsInfos;
     }
 
@@ -393,6 +399,7 @@ public class MediaFileUtil {
                 mediaInfo = new MediaInfo();
                 mediaInfo.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
                 mediaInfo.createTime = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATE_ADDED));
+                mediaInfo.name = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.TITLE));
                 allMediasList.add(mediaInfo);
             }
             cursor.close();

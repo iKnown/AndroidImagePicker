@@ -88,7 +88,7 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
     	}
     }
     
-    public ImageView getImageView(){
+    public SimpleDraweeView getImageView(){
     	return mImgView;
     }
 
