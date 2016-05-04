@@ -234,6 +234,13 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
       if(itemView instanceof PicItemCheckedView){
         picImageView = ((PicItemCheckedView) itemView).getImageView();
       }
+
+      itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          onImageSelectItemClick(v,getAdapterPosition());
+        }
+      });
     }
   }
 }
