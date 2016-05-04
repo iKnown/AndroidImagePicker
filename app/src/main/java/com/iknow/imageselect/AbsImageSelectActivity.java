@@ -23,6 +23,7 @@ import com.iknow.imageselect.presenter.IImageChoosePresenter;
 import com.iknow.imageselect.presenter.ImageChoosePresenterCompl;
 import com.iknow.imageselect.utils.MediaFileUtil;
 import com.iknow.imageselect.view.IImageChooseView;
+import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;
 import java.io.File;
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   protected abstract void initBottomView(View bottomView);
   protected abstract void onBindViewHolderToChild(MediaInfo model,ImageSelectViewHolder holder,int position);
   protected abstract View getRecyclerItemView(ViewGroup parentView, int position);
-  protected abstract void onImageSelectItemClick(AdapterView<?> parent, View view, int position, long id);
+  protected abstract void onImageSelectItemClick(View view, int position);
   protected abstract void onCameraActivityResult(String path);
 ;
   // ===========================================================
@@ -171,7 +172,6 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     GridLayoutManager manager = new GridLayoutManager(this, 3);
     mRecyclerView.setLayoutManager(manager);
     mRecyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
-
   }
 
   private void showAlbumListView() {
@@ -215,7 +215,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     }
 
     @Override
-    public void onBindViewHolder(ImageSelectViewHolder holder,int position) {
+    public void onBindViewHolder(ImageSelectViewHolder holder, final int position) {
       MediaInfo mediaInfo = allMedias.get(position);
       onBindViewHolderToChild(mediaInfo,holder,position);
     }
@@ -231,7 +231,9 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
     public ImageSelectViewHolder(View itemView) {
       super(itemView);
-      picImageView = (SimpleDraweeView) itemView.findViewById(R.id.img_view);
+      if(itemView instanceof PicItemCheckedView){
+        picImageView = ((PicItemCheckedView) itemView).getImageView();
+      }
     }
   }
 }

@@ -3,11 +3,8 @@ package com.iknow.imageselect;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -15,7 +12,6 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.iknow.imageselect.model.MediaInfo;
-import com.iknow.imageselect.utils.DeviceInforHelper;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;
@@ -75,23 +71,16 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
         .setOldController(holder.picImageView.getController())
         .setImageRequest(request)
         .build();
-
     holder.picImageView.setController(controller);
-    int size = DeviceInforHelper.getScreenWidth()/ 3;
-    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.picImageView.getLayoutParams();
-    params.width = size;
-    params.height = size;
-    holder.picImageView.setLayoutParams(params);
   }
 
   @Override public View getRecyclerItemView(ViewGroup parentView, int position) {
-      View itemView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.image_select_item, parentView, false);
-      return itemView;
+    return new PicItemCheckedView(this);
   }
 
 
   @Override
-  protected void onImageSelectItemClick(AdapterView<?> parent, View view, int position,long id) {
+  protected void onImageSelectItemClick(View view, int position) {
     if(view instanceof PicItemCheckedView){
       PicItemCheckedView item = (PicItemCheckedView)view;
       boolean isChecked = item.isChecked();

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.iknow.imageselect.model.MediaInfo;
@@ -107,7 +106,7 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
   }
 
   @Override
-  protected void onImageSelectItemClick(AdapterView<?> parent, View view, int position,long id) {
+  protected void onImageSelectItemClick(View view, int position) {
     if(view instanceof PicItemCheckedView){
 
       PicItemCheckedView item = (PicItemCheckedView)view;
