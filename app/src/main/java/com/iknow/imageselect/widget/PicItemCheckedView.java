@@ -16,10 +16,11 @@ import com.iknow.imageselect.utils.DeviceInforHelper;
 
 public class PicItemCheckedView extends RelativeLayout implements Checkable {
 
-    private Context mContext;
-    private boolean mChecked;
-    private SimpleDraweeView mImgView = null;
-    private ImageView mSelectView;
+  private Context mContext;
+  private boolean mChecked;
+  private SimpleDraweeView mImgView = null;
+  private ImageView mSelectView;
+  private View mSelectPanelView;
 
   private static final int columnNum = 3;
 
@@ -52,6 +53,8 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
           ImageView mUnSelectView = (ImageView) findViewById(R.id.unselect);
           mUnSelectView.setVisibility(View.GONE);
         }
+
+        mSelectPanelView = findViewById(R.id.album_pic_select_panel);
     }
 
 	@Override
@@ -92,4 +95,7 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
     	return mImgView;
     }
 
+    public View getSelectPanelView(){
+      return mSelectPanelView;
+    }
 }

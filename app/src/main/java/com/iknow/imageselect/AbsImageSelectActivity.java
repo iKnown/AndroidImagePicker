@@ -210,19 +210,19 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
   public class ImageSelectViewHolder extends RecyclerView.ViewHolder {
     public SimpleDraweeView picImageView;
+    public View panelView;
 
-    public ImageSelectViewHolder(View itemView) {
+    public ImageSelectViewHolder(final View itemView) {
       super(itemView);
       if(itemView instanceof PicItemCheckedView){
         picImageView = ((PicItemCheckedView) itemView).getImageView();
+        panelView = ((PicItemCheckedView) itemView).getSelectPanelView();
+        panelView.setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View pView) {
+            onImageSelectItemClick(itemView,getAdapterPosition());
+          }
+        });
       }
-
-      itemView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          onImageSelectItemClick(v,getAdapterPosition());
-        }
-      });
     }
   }
 }
