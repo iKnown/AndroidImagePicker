@@ -58,6 +58,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   protected ArrayList<MediaInfo> hasCheckedImages = new ArrayList<MediaInfo>();
   protected IImageChoosePresenter imageChoosePresenter;
   private RecyclerAdapter imageGridAdapter;
+  private RecyclerView recyclerView;
 
   protected abstract void initTitleView(TitleView titleView);
   protected abstract void initBottomView(View bottomView);
@@ -150,15 +151,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
         AlbumInfo albumInfo = (AlbumInfo) adapterView.getItemAtPosition(position);
         allMedias.clear();
         allMedias = albumInfo.medias;
-        imageGridAdapter.notifyDataSetChanged();
-        /**
-         * scroll to top
-         */
-        //mImageGv.post(new Runnable() {
-        //  @Override public void run() {
-        //    mImageGv.setSelection(0);
-        //  }
-        //});
+        recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
         allImagesTv.setText(albumInfo.name);
         gsTitleView.setTitleText(albumInfo.name);
         hideAlbumListView();
@@ -168,11 +161,12 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     allImagesTv = (TextView) findViewById(R.id.all_album_tv);
     allImagesTv.setOnClickListener(this);
 
-    RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.album_pic_recyclerview);
+    recyclerView = (RecyclerView) this.findViewById(R.id.album_pic_recyclerview);
     GridLayoutManager manager = new GridLayoutManager(this, 3);
-    recyclerView.setLayoutManager(manager);
     recyclerView.addItemDecoration(new SpacesItemDecoration(5));
+    recyclerView.setHasFixedSize(true);
     recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
+    recyclerView.setLayoutManager(manager);
   }
 
   private void showAlbumListView() {
