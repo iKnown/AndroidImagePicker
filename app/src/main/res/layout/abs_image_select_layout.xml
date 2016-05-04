@@ -23,8 +23,8 @@
           app:title_btn_right_text="发送"
           app:title_btn_right_text_appearance="@style/text_16_ffffff"
           app:title_text="全部"/>
-      <GridView
-          android:id="@+id/album_pic_gridView"
+      <android.support.v7.widget.RecyclerView
+          android:id="@+id/album_pic_recyclerview"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:background="@android:color/white"

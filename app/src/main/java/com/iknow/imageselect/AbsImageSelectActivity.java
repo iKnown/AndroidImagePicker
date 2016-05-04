@@ -1,20 +1,20 @@
 package com.iknow.imageselect;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.iknow.imageselect.adapter.AlbumListAdapter;
 import com.iknow.imageselect.core.CoreActivity;
 import com.iknow.imageselect.model.AlbumInfo;
@@ -55,12 +55,13 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   protected ArrayList<MediaInfo> allMedias = new ArrayList<MediaInfo>();
   protected ArrayList<MediaInfo> hasCheckedImages = new ArrayList<MediaInfo>();
   protected IImageChoosePresenter imageChoosePresenter;
-  private ImageGridAdapter imageGridAdapter;
-  private GridView mImageGv;
+  private RecyclerAdapter imageGridAdapter;
+  private RecyclerView mRecyclerView;
 
   protected abstract void initTitleView(TitleView titleView);
   protected abstract void initBottomView(View bottomView);
-  protected abstract View doGetViewWork(int position,View convertView,MediaInfo imageInfo);
+  protected abstract void onBindViewHolderToChild(MediaInfo model,ImageSelectViewHolder holder,int position);
+  protected abstract View getRecyclerItemView(ViewGroup parentView, int position);
   protected abstract void onImageSelectItemClick(AdapterView<?> parent, View view, int position, long id);
   protected abstract void onCameraActivityResult(String path);
 ;
@@ -152,11 +153,11 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
         /**
          * scroll to top
          */
-        mImageGv.post(new Runnable() {
-          @Override public void run() {
-            mImageGv.setSelection(0);
-          }
-        });
+        //mImageGv.post(new Runnable() {
+        //  @Override public void run() {
+        //    mImageGv.setSelection(0);
+        //  }
+        //});
         allImagesTv.setText(albumInfo.name);
         gsTitleView.setTitleText(albumInfo.name);
         hideAlbumListView();
@@ -166,15 +167,10 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     allImagesTv = (TextView) findViewById(R.id.all_album_tv);
     allImagesTv.setOnClickListener(this);
 
-    mImageGv = (GridView) this.findViewById(R.id.album_pic_gridView);
-    mImageGv.setAdapter(imageGridAdapter = new ImageGridAdapter(this));
-    mImageGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        onImageSelectItemClick(parent,view,position,id);
-      }
-    });
+    mRecyclerView = (RecyclerView) this.findViewById(R.id.album_pic_recyclerview);
+    GridLayoutManager manager = new GridLayoutManager(this, 3);
+    mRecyclerView.setLayoutManager(manager);
+    mRecyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
 
   }
 
@@ -191,29 +187,51 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   // ===========================================================
   // Inner and Anonymous Classes
   // ===========================================================
-  private class ImageGridAdapter extends BaseAdapter {
 
-    public ImageGridAdapter(Context mContext) {
+  public class RecyclerAdapter extends RecyclerView.Adapter<ImageSelectViewHolder> {
+
+    private ArrayList<MediaInfo> allMedias;
+    //public OnItemClickListener mOnItemClickListener;
+    //
+    //public void setOnItemClickListener(OnItemClickListener itemClickListener) {
+    //  mOnItemClickListener = itemClickListener;
+    //}
+
+    //public interface OnItemClickListener {
+    //  void onItemClick(View view, int position);
+    //}
+    //
+    //public interface OnImageSelectItemClickListener{
+    //  void OnImageSelectItemClick(AdapterView<?> parent, View view, int position, long id);
+    //}
+
+    public RecyclerAdapter(ArrayList<MediaInfo> allMedias) {
+      this.allMedias = allMedias;
+    }
+
+    @Override public ImageSelectViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+      View view = getRecyclerItemView(parent,position);
+      return new ImageSelectViewHolder(view);
     }
 
     @Override
-    public int getCount() {
+    public void onBindViewHolder(ImageSelectViewHolder holder,int position) {
+      MediaInfo mediaInfo = allMedias.get(position);
+      onBindViewHolderToChild(mediaInfo,holder,position);
+    }
+
+    @Override public int getItemCount() {
       return allMedias.size();
     }
 
-    @Override
-    public Object getItem(int id) {
-      return allMedias.get(id);
-    }
+  }
 
-    @Override
-    public long getItemId(int id) {
-      return id;
-    }
+  public class ImageSelectViewHolder extends RecyclerView.ViewHolder {
+    public SimpleDraweeView picImageView;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-      return doGetViewWork(position, convertView, allMedias.get(position));
+    public ImageSelectViewHolder(View itemView) {
+      super(itemView);
+      picImageView = (SimpleDraweeView) itemView.findViewById(R.id.img_view);
     }
   }
 }

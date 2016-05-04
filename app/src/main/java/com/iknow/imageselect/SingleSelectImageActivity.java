@@ -3,8 +3,8 @@ package com.iknow.imageselect;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,14 +73,19 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
     });
   }
 
+  @Override protected void onBindViewHolderToChild(MediaInfo model,
+      ImageSelectViewHolder holder, int position) {
+
+  }
+
   @Override
-  protected View doGetViewWork(int position,View convertView,MediaInfo imageInfo) {
-    if (convertView == null) {
-      convertView = new PicItemCheckedView(this,true);
+  protected View getRecyclerItemView(ViewGroup parentView, int position) {
+    if (parentView == null) {
+      parentView = new PicItemCheckedView(this,true);
     }
 
     try {
-      PicItemCheckedView view = ((PicItemCheckedView) convertView);
+      PicItemCheckedView view = ((PicItemCheckedView) parentView);
       long picId = allMedias.get(position).fileId;
       if (picId < 0) {
         throw new RuntimeException("the pic id is not num");
@@ -89,21 +94,16 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
       final ImageView iv = view.getImageView();
       iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
-      String path = imageInfo.fileName;
 
-      if (!TextUtils.isEmpty(imageInfo.thumbPath)) {
-        path = imageInfo.thumbPath;
-      }
-
-      if (hasCheckedImages.contains(allMedias.get(position))) {
-        view.setChecked(true);
-      } else {
-        view.setChecked(false);
-      }
+      //if (hasCheckedImages.contains(allMedias.get(position))) {
+      //  view.setChecked(true);
+      //} else {
+      //  view.setChecked(false);
+      //}
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return convertView;
+    return parentView;
   }
 
   @Override

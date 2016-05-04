@@ -3,17 +3,19 @@ package com.iknow.imageselect;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.iknow.imageselect.model.MediaInfo;
+import com.iknow.imageselect.utils.DeviceInforHelper;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;
@@ -24,7 +26,7 @@ import com.iknow.imageselect.widget.TitleView;
  * @Created: 2016年04月12日 5:02 PM
  * @Description:
  */
-public class MultiSelectImageActivity extends AbsImageSelectActivity {
+public class MultiSelectImageActivity extends AbsImageSelectActivity{
 
   // ===========================================================
   // Constants
@@ -65,48 +67,28 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
     });
   }
 
-  @Override
-  protected View doGetViewWork(int position,View convertView,MediaInfo imageInfo) {
+  @Override protected void onBindViewHolderToChild(MediaInfo model,ImageSelectViewHolder holder, int position) {
+    ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageFilePathUtil.getImgUrl(model.fileName)))
+        .setResizeOptions(new ResizeOptions(100, 100)).build();
 
-    if (convertView == null) {
-      convertView = new PicItemCheckedView(this);
-    }
+    PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
+        .setOldController(holder.picImageView.getController())
+        .setImageRequest(request)
+        .build();
 
-    try {
-      PicItemCheckedView view = ((PicItemCheckedView) convertView);
-      long picId = allMedias.get(position).fileId;
-      if (picId < 0) {
-        throw new RuntimeException("the pic id is not num");
-      }
-
-      final SimpleDraweeView simpleDraweeView = (SimpleDraweeView) view.getImageView();
-
-      String path = imageInfo.fileName;
-
-      if (!TextUtils.isEmpty(imageInfo.thumbPath)) {
-        path = imageInfo.thumbPath;
-      }
-
-      ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(ImageFilePathUtil.getImgUrl(path)))
-      .setResizeOptions(new ResizeOptions(100, 100)).build();
-
-      PipelineDraweeController controller = (PipelineDraweeController) Fresco.newDraweeControllerBuilder()
-          .setOldController(simpleDraweeView.getController())
-          .setImageRequest(request)
-          .build();
-
-      simpleDraweeView.setController(controller);
-
-      if (hasCheckedImages.contains(allMedias.get(position))) {
-        view.setChecked(true);
-      } else {
-        view.setChecked(false);
-      }
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return convertView;
+    holder.picImageView.setController(controller);
+    int size = DeviceInforHelper.getScreenWidth()/ 3;
+    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) holder.picImageView.getLayoutParams();
+    params.width = size;
+    params.height = size;
+    holder.picImageView.setLayoutParams(params);
   }
+
+  @Override public View getRecyclerItemView(ViewGroup parentView, int position) {
+      View itemView = LayoutInflater.from(parentView.getContext()).inflate(R.layout.image_select_item, parentView, false);
+      return itemView;
+  }
+
 
   @Override
   protected void onImageSelectItemClick(AdapterView<?> parent, View view, int position,long id) {
