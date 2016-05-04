@@ -24,6 +24,7 @@ import com.iknow.imageselect.presenter.ImageChoosePresenterCompl;
 import com.iknow.imageselect.utils.MediaFileUtil;
 import com.iknow.imageselect.view.IImageChooseView;
 import com.iknow.imageselect.widget.PicItemCheckedView;
+import com.iknow.imageselect.widget.SpacesItemDecoration;
 import com.iknow.imageselect.widget.TitleView;
 import java.io.File;
 import java.util.ArrayList;
@@ -57,7 +58,6 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   protected ArrayList<MediaInfo> hasCheckedImages = new ArrayList<MediaInfo>();
   protected IImageChoosePresenter imageChoosePresenter;
   private RecyclerAdapter imageGridAdapter;
-  private RecyclerView mRecyclerView;
 
   protected abstract void initTitleView(TitleView titleView);
   protected abstract void initBottomView(View bottomView);
@@ -65,7 +65,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   protected abstract View getRecyclerItemView(ViewGroup parentView, int position);
   protected abstract void onImageSelectItemClick(View view, int position);
   protected abstract void onCameraActivityResult(String path);
-;
+
   // ===========================================================
   // Constructors
   // ===========================================================
@@ -168,10 +168,11 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     allImagesTv = (TextView) findViewById(R.id.all_album_tv);
     allImagesTv.setOnClickListener(this);
 
-    mRecyclerView = (RecyclerView) this.findViewById(R.id.album_pic_recyclerview);
+    RecyclerView recyclerView = (RecyclerView) this.findViewById(R.id.album_pic_recyclerview);
     GridLayoutManager manager = new GridLayoutManager(this, 3);
-    mRecyclerView.setLayoutManager(manager);
-    mRecyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
+    recyclerView.setLayoutManager(manager);
+    recyclerView.addItemDecoration(new SpacesItemDecoration(5));
+    recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
   }
 
   private void showAlbumListView() {
@@ -191,19 +192,6 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   public class RecyclerAdapter extends RecyclerView.Adapter<ImageSelectViewHolder> {
 
     private ArrayList<MediaInfo> allMedias;
-    //public OnItemClickListener mOnItemClickListener;
-    //
-    //public void setOnItemClickListener(OnItemClickListener itemClickListener) {
-    //  mOnItemClickListener = itemClickListener;
-    //}
-
-    //public interface OnItemClickListener {
-    //  void onItemClick(View view, int position);
-    //}
-    //
-    //public interface OnImageSelectItemClickListener{
-    //  void OnImageSelectItemClick(AdapterView<?> parent, View view, int position, long id);
-    //}
 
     public RecyclerAdapter(ArrayList<MediaInfo> allMedias) {
       this.allMedias = allMedias;
