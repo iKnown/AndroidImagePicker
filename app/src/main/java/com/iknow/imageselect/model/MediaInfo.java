@@ -33,6 +33,8 @@ public class MediaInfo implements Serializable,Cloneable {
 
   public String lon;
 
+  public int mediaType;
+
   public static MediaInfo obtain(String path){
      MediaInfo imageInfo = new MediaInfo();
      imageInfo.fileName = path;

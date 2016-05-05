@@ -35,4 +35,14 @@
             android:src="@drawable/img_pic_unselected"
             />
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/video_icon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        android:src="@drawable/video_icon"/>
 </FrameLayout>

@@ -367,6 +367,7 @@ public class MediaFileUtil {
                 mediaInfo.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
                 mediaInfo.createTime = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATE_ADDED));
                 mediaInfo.name = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME));
+                mediaInfo.mediaType = 3;
                 videos.add(mediaInfo);
             }
 
@@ -400,6 +401,7 @@ public class MediaFileUtil {
                 mediaInfo.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
                 mediaInfo.createTime = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATE_ADDED));
                 mediaInfo.name = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.TITLE));
+                mediaInfo.mediaType = cursor.getInt(cursor.getColumnIndex(MediaStore.Files.FileColumns.MEDIA_TYPE));
                 allMediasList.add(mediaInfo);
             }
             cursor.close();

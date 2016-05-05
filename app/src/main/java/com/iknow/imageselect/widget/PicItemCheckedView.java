@@ -19,7 +19,7 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
   private Context mContext;
   private boolean mChecked;
   private SimpleDraweeView mImgView = null;
-  private ImageView mSelectView;
+  private ImageView mSelectView,mVideoIcon;
   private View mSelectPanelView;
 
   private static final int columnNum = 3;
@@ -41,6 +41,7 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
         mContext = context;
         LayoutInflater.from(mContext).inflate(R.layout.image_select_item, this);
         mImgView = (SimpleDraweeView) findViewById(R.id.img_view);
+        mVideoIcon = (ImageView) findViewById(R.id.video_icon);
        
         int size = DeviceInforHelper.getScreenWidth()/ columnNum;
 		    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mImgView.getLayoutParams();
@@ -90,8 +91,12 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
     		mImgView.setImageDrawable(db);
     	}
     }
-    
-    public SimpleDraweeView getImageView(){
+
+  public ImageView getVideoIcon() {
+    return mVideoIcon;
+  }
+
+  public SimpleDraweeView getImageView(){
     	return mImgView;
     }
 

@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -252,11 +253,13 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   public class ImageSelectViewHolder extends RecyclerView.ViewHolder {
     public SimpleDraweeView picImageView;
     public View panelView;
+    public ImageView videoIcon;
 
     public ImageSelectViewHolder(final View itemView) {
       super(itemView);
       if(itemView instanceof PicItemCheckedView){
         picImageView = ((PicItemCheckedView) itemView).getImageView();
+        videoIcon = ((PicItemCheckedView) itemView).getVideoIcon();
         panelView = ((PicItemCheckedView) itemView).getSelectPanelView();
         panelView.setOnClickListener(new View.OnClickListener() {
           @Override public void onClick(View pView) {

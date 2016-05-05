@@ -72,6 +72,8 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
         .setImageRequest(request)
         .build();
     holder.picImageView.setController(controller);
+
+    holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE:View.GONE);
   }
 
   @Override public View getRecyclerItemView(ViewGroup parentView, int position) {
