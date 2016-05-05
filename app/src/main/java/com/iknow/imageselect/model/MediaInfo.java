@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @Description:
  */
 
-public class MediaInfo implements Serializable {
+public class MediaInfo implements Serializable,Cloneable {
 
   public long fileId;
   /** 图片显示的名称 */

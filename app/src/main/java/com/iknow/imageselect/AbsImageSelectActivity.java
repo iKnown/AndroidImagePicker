@@ -28,6 +28,7 @@ import com.iknow.imageselect.widget.SpacesItemDecoration;
 import com.iknow.imageselect.widget.TitleView;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * @Author: J.Chou
@@ -44,6 +45,8 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   public static final int PHOTO_REQUEST_CAMERA = 0x007;
   public static final int MULTI_PIC_SELECT_REQUEST = 0x008;
   public static final int SINGLE_PIC_SELECT_REQUEST = 0x009;
+  private static final String ALL_VIDEO = "所有视频";
+  private static final String PIC_AND_VIDEO = "图片和视频";
   // ===========================================================
   // Fields
   // ===========================================================
@@ -54,8 +57,12 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   private View albumView;
   protected TextView allImagesTv;
   protected TitleView gsTitleView;
-  protected ArrayList<MediaInfo> allMedias = new ArrayList<MediaInfo>();
-  protected ArrayList<MediaInfo> hasCheckedImages = new ArrayList<MediaInfo>();
+  protected ArrayList<MediaInfo> allMedias = new ArrayList<>();
+  protected ArrayList<MediaInfo> imageAndVideoAlbums = new ArrayList<>();
+  protected ArrayList<MediaInfo> hasCheckedImages = new ArrayList<>();
+  private AlbumInfo allAlbumInfo = new AlbumInfo();
+  private AlbumInfo videoAlbumInfo = new AlbumInfo();
+  private LinkedList<AlbumInfo> albumLinkedList = new LinkedList<>();
   protected IImageChoosePresenter imageChoosePresenter;
   private RecyclerAdapter imageGridAdapter;
   private RecyclerView recyclerView;
@@ -84,6 +91,8 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     this.mContext = this;
     setContentView(R.layout.abs_image_select_layout);
     allMedias = MediaFileUtil.getAllMediaFiles(ZApplication.getApplication());
+    imageAndVideoAlbums = (ArrayList<MediaInfo>) allMedias.clone();
+    videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ZApplication.getApplication());
     imageChoosePresenter = new ImageChoosePresenterCompl(this, this);
     initTitleView(gsTitleView = (TitleView) this.findViewById(R.id.titlebar));
     initBottomView(this.findViewById(R.id.bottomView));
@@ -126,7 +135,32 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     if(R.id.all_album_tv == view.getId()) {
       if(!showAlbumList) {
         showAlbumListView();
-        albumListView.setAdapter(new AlbumListAdapter(this, MediaFileUtil.getThumbnailsPhotosInfo(this)));
+        try {
+          albumLinkedList.clear();
+          allAlbumInfo.medias = imageAndVideoAlbums;
+          if(!allAlbumInfo.medias.isEmpty()){
+            allAlbumInfo.name = PIC_AND_VIDEO;
+            albumLinkedList.add(allAlbumInfo);
+          }else {
+            allAlbumInfo.medias = MediaFileUtil.getAllMediaFiles(ZApplication.getApplication());
+            allAlbumInfo.name = PIC_AND_VIDEO;
+            albumLinkedList.add(allAlbumInfo);
+          }
+
+          if(!videoAlbumInfo.medias.isEmpty()) {
+            videoAlbumInfo.name = ALL_VIDEO;
+            albumLinkedList.add(videoAlbumInfo);
+          }else{
+            videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ZApplication.getApplication());
+            videoAlbumInfo.name = ALL_VIDEO;
+            albumLinkedList.add(videoAlbumInfo);
+          }
+
+          albumLinkedList.addAll(MediaFileUtil.getThumbnailsPhotosInfo(this));
+          albumListView.setAdapter(new AlbumListAdapter(this, albumLinkedList));
+        }catch(Exception e) {
+          e.printStackTrace();
+        }
       }else{
         hideAlbumListView();
       }
@@ -138,6 +172,15 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   @Override
   public void reloadData() {
   }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    allMedias = null;
+    imageAndVideoAlbums = null;
+    albumLinkedList = null;
+  }
+
   // ===========================================================
   // Methods
   // ===========================================================
@@ -149,9 +192,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         AlbumInfo albumInfo = (AlbumInfo) adapterView.getItemAtPosition(position);
-        allMedias.clear();
-        allMedias = albumInfo.medias;
-        recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
+        recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(albumInfo.medias));
         allImagesTv.setText(albumInfo.name);
         gsTitleView.setTitleText(albumInfo.name);
         hideAlbumListView();

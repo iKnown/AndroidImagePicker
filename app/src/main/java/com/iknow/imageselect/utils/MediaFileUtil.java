@@ -28,8 +28,24 @@ import java.util.Map;
  */
 
 public class MediaFileUtil {
+
+   static String[] projection = {
+        MediaStore.Files.FileColumns._ID,
+        MediaStore.Files.FileColumns.DATA,
+        MediaStore.Files.FileColumns.DATE_ADDED,
+        MediaStore.Files.FileColumns.MEDIA_TYPE,
+        MediaStore.Files.FileColumns.MIME_TYPE,
+        MediaStore.Files.FileColumns.TITLE
+    };
+
+    static String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+        + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
+        + " OR "
+        + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+        + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
+
+
     /**
-     * 获取图库专辑封面相关图片
      * @param mContext
      * @return
      */
@@ -39,9 +55,8 @@ public class MediaFileUtil {
         Cursor cursor = null;
 
         try {
-            cursor = mContext.getContentResolver().query(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null,
-                    null, MediaStore.Images.Media.DEFAULT_SORT_ORDER);
+            cursor = mContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null,
+                        null, MediaStore.Images.Media.DEFAULT_SORT_ORDER);
             if (cursor == null) {
                 return bitmaps;
             }
@@ -366,21 +381,6 @@ public class MediaFileUtil {
         MediaInfo mediaInfo;
         ArrayList<MediaInfo> allMediasList = new ArrayList<>();
 
-        String[] projection = {
-            MediaStore.Files.FileColumns._ID,
-            MediaStore.Files.FileColumns.DATA,
-            MediaStore.Files.FileColumns.DATE_ADDED,
-            MediaStore.Files.FileColumns.MEDIA_TYPE,
-            MediaStore.Files.FileColumns.MIME_TYPE,
-            MediaStore.Files.FileColumns.TITLE
-        };
-
-        String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-                            + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
-                            + " OR "
-                            + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-                            + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
-
         Uri queryUri = MediaStore.Files.getContentUri("external");
 
         try {
@@ -409,4 +409,5 @@ public class MediaFileUtil {
 
         return allMediasList;
     }
+
 }
