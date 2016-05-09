@@ -19,6 +19,7 @@ import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.DrawableUtil;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
+import com.iknow.imageselect.utils.PhotoDraweeViewUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -207,7 +208,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         public Object instantiateItem(ViewGroup container, int position) {
             View itemView;
             container.addView(itemView = views.get(position));
-            ((SimpleDraweeView)itemView.findViewById(R.id.photo_view)).setImageURI(Uri.parse(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName)));
+            PhotoDraweeViewUtil.display((PhotoDraweeView) itemView.findViewById(R.id.photo_view), Uri.parse(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName)));
             return itemView;
         }
 
