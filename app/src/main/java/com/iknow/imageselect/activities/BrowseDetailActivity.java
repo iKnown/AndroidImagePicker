@@ -2,6 +2,7 @@ package com.iknow.imageselect.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -13,14 +14,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.DrawableUtil;
+import com.iknow.imageselect.utils.ImageFilePathUtil;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import rawe.gordon.com.photodraweeview.PhotoDraweeView;
 
 /**
  * Created by gordon on 5/9/16.
@@ -201,8 +205,10 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(views.get(position));
-            return views.get(position);
+            View itemView;
+            container.addView(itemView = views.get(position));
+            ((SimpleDraweeView)itemView.findViewById(R.id.photo_view)).setImageURI(Uri.parse(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName)));
+            return itemView;
         }
 
         @Override
@@ -259,10 +265,10 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         finish();
     }
 
-    public static List<BrowseDetailModel> getValidModels(List<BrowseDetailModel> models) {
-        List<BrowseDetailModel> res = new ArrayList<>();
+    public static List<MediaInfo> getValidModels(List<BrowseDetailModel> models) {
+        List<MediaInfo> res = new ArrayList<>();
         for (BrowseDetailModel model : models) {
-            if (model.isSelected()) res.add(model);
+            if (model.isSelected()) res.add(model.getMedia());
         }
         return res;
     }
