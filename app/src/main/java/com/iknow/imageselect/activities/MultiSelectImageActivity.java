@@ -105,6 +105,11 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
     }
   }
 
+  @Override
+  protected void onImageItemClick(View view, int position) {
+    BrowseDetailActivity.goToBrowseDetailActivity(this,allMedias,position);
+  }
+
   @Override protected void onCameraActivityResult(String path) {
     Bundle bd = new Bundle();
     hasCheckedImages.clear();

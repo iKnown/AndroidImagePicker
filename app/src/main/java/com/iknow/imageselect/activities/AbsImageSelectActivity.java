@@ -75,6 +75,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   protected abstract void onBindViewHolderToChild(MediaInfo model,ImageSelectViewHolder holder,int position);
   protected abstract View getRecyclerItemView(ViewGroup parentView, int position);
   protected abstract void onImageSelectItemClick(View view, int position);
+  protected abstract void onImageItemClick(View view, int position);
   protected abstract void onCameraActivityResult(String path);
 
   // ===========================================================
@@ -266,6 +267,13 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
         panelView.setOnClickListener(new View.OnClickListener() {
           @Override public void onClick(View pView) {
             onImageSelectItemClick(itemView,getAdapterPosition());
+          }
+        });
+        picImageView.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            onImageItemClick(view,getAdapterPosition());
+
           }
         });
       }

@@ -28,6 +28,15 @@ import java.util.List;
 public class BrowseDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String MEDIA_KEY = "MEDIA_KEY";
+    public static final String CHOOSEN_PICS = "CHOOSEN_PICS";
+    public static final int CODE_BROWSE_AND_CHOOSE = 0x1128;
+
+    public static final String TYPE_SELECTED = "TYPE_SELECTED";
+    public static final String TYPE_EMPTY = "TYPE_EMPTY";
+    public static String ENTRY_TYPE = "ENTRY_TYPE";
+    public static String CURRENT_INDEX = "CURRENT_INDEX";
+
+    private String fromType = TYPE_EMPTY;
 
     private ImageView backImage, orginalImage, chooseImage;
     private View send, backArea, originalArea, chooseArea;
@@ -63,10 +72,13 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         medias = new ArrayList<>();
         Intent fromIntent = getIntent();
         if (fromIntent.getExtras() != null) {
+            currentIndex = fromIntent.getExtras().getInt(CURRENT_INDEX);
+            fromType = fromIntent.getExtras().getString(ENTRY_TYPE);
             List<MediaInfo> pass = (List<MediaInfo>) fromIntent.getExtras().getSerializable(MEDIA_KEY);
             for (MediaInfo info : pass) {
-                medias.add(new BrowseDetailModel(info));
+                medias.add(fromType.equals(TYPE_EMPTY) ? new BrowseDetailModel(info) : new BrowseDetailModel(true, info));
             }
+
         }
         medias.addAll(Arrays.asList(new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo())));
         count = medias.size();
@@ -90,6 +102,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
 
             }
         });
+        viewPager.setCurrentItem(currentIndex);
         setNavigationText((currentIndex + 1) + "/" + count);
     }
 
@@ -158,6 +171,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             case R.id.back_container:
                 break;
             case R.id.send:
+                handleSureAction();
                 break;
         }
     }
@@ -231,11 +245,44 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    public static void goToBrowseDetailActivity(Activity from, List<MediaInfo> mediaInfos) {
+    private void handleSureAction() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(CHOOSEN_PICS, (Serializable) getValidModels(medias));
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    private void handleBackAction() {
+        finish();
+    }
+
+    public static List<BrowseDetailModel> getValidModels(List<BrowseDetailModel> models) {
+        List<BrowseDetailModel> res = new ArrayList<>();
+        for (BrowseDetailModel model : models) {
+            if (model.isSelected()) res.add(model);
+        }
+        return res;
+    }
+
+    public static void goToBrowseDetailActivity(Activity from, List<MediaInfo> mediaInfos, int index) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(MEDIA_KEY, (Serializable) mediaInfos);
+        bundle.putString(ENTRY_TYPE, TYPE_EMPTY);
+        bundle.putInt(CURRENT_INDEX, index);
         Intent intent = new Intent(from, BrowseDetailActivity.class);
         intent.putExtras(bundle);
-        from.startActivity(intent);
+        from.startActivityForResult(intent, CODE_BROWSE_AND_CHOOSE);
+    }
+
+    public static void goToBrowseDetailActivitySelected(Activity from, List<MediaInfo> mediaInfos) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(MEDIA_KEY, (Serializable) mediaInfos);
+        bundle.putString(ENTRY_TYPE, TYPE_SELECTED);
+        bundle.putInt(CURRENT_INDEX, 0);
+        Intent intent = new Intent(from, BrowseDetailActivity.class);
+        intent.putExtras(bundle);
+        from.startActivityForResult(intent, CODE_BROWSE_AND_CHOOSE);
     }
 }
