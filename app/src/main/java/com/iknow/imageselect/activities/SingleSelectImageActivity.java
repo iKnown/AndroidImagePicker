@@ -135,6 +135,11 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
     }
   }
 
+  @Override
+  protected void onImageItemClick(View view, int position) {
+
+  }
+
   @Override protected void onCameraActivityResult(String path) {
     Bundle bd = new Bundle();
     hasCheckedImages.clear();

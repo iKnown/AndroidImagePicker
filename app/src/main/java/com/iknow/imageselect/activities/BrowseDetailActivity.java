@@ -80,7 +80,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             }
 
         }
-        medias.addAll(Arrays.asList(new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo())));
+//        medias.addAll(Arrays.asList(new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo())));
         count = medias.size();
     }
 
@@ -169,6 +169,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
                 setOriginal(!isOriginal());
                 break;
             case R.id.back_container:
+                handleBackAction();
                 break;
             case R.id.send:
                 handleSureAction();
