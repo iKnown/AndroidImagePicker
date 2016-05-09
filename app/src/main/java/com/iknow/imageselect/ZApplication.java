@@ -2,6 +2,7 @@ package com.iknow.imageselect;
 
 import android.app.Application;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.iknow.imageselect.configs.ImagePipelineConfigFactory;
 
 /**
  * @Author: Jason.Chou
@@ -36,7 +37,7 @@ public class ZApplication extends Application{
   @Override public void onCreate() {
     super.onCreate();
     mApplication = this;
-    Fresco.initialize(this,ImagePipelineConfigFactory.getImagePipelineConfig(this));
+    Fresco.initialize(this, ImagePipelineConfigFactory.getImagePipelineConfig(this));
   }
 
   // ===========================================================

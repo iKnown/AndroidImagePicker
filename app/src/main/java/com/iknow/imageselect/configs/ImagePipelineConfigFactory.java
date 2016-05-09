@@ -1,4 +1,4 @@
-package com.iknow.imageselect;
+package com.iknow.imageselect.configs;
 
 import android.content.Context;
 import android.os.Build;

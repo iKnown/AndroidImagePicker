@@ -1,4 +1,4 @@
-package com.iknow.imageselect;
+package com.iknow.imageselect.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;

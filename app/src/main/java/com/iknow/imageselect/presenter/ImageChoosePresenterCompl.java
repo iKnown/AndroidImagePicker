@@ -7,7 +7,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.widget.Toast;
-import com.iknow.imageselect.AbsImageSelectActivity;
+import com.iknow.imageselect.activities.AbsImageSelectActivity;
 import com.iknow.imageselect.ZApplication;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.view.IImageChooseView;

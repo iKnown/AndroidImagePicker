@@ -1,4 +1,4 @@
-package com.iknow.imageselect;
+package com.iknow.imageselect.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +11,7 @@ import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;

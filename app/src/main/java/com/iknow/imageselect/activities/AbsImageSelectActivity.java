@@ -1,4 +1,4 @@
-package com.iknow.imageselect;
+package com.iknow.imageselect.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.iknow.imageselect.R;
+import com.iknow.imageselect.ZApplication;
 import com.iknow.imageselect.adapter.AlbumListAdapter;
 import com.iknow.imageselect.core.CoreActivity;
 import com.iknow.imageselect.model.AlbumInfo;
