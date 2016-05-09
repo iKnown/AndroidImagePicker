@@ -34,6 +34,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
     private TextView navigationText;
     private ViewPager viewPager;
     private List<BrowseDetailModel> medias;
+    private int count = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +57,6 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         chooseArea = findViewById(R.id.choose_container);
         send = findViewById(R.id.send);
         viewPager = (ViewPager) findViewById(R.id.view_pager);
-        setNavigationText("8/112");
     }
 
     private void prepareData() {
@@ -69,6 +69,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             }
         }
         medias.addAll(Arrays.asList(new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo())));
+        count = medias.size();
     }
 
     public void initialize() {
@@ -89,6 +90,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
 
             }
         });
+        setNavigationText((currentIndex + 1) + "/" + count);
     }
 
     private void addIcons() {
@@ -117,6 +119,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
 
     private void refreshState() {
         setChosen(medias.get(currentIndex).isSelected());
+        setNavigationText((currentIndex + 1) + "/" + count);
     }
 
     private void setNavigationText(String navigation) {
