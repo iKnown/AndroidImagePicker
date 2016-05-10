@@ -290,7 +290,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
 
     public static void goToBrowseDetailActivitySelected(Activity from, List<MediaInfo> mediaInfos) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(MEDIA_KEY, (Serializable) mediaInfos);
+        CacheBean.putParam(BrowseDetailActivity.TOKEN, BrowseDetailActivity.ALL_MEDIA_LIST, mediaInfos);
         bundle.putString(ENTRY_TYPE, TYPE_SELECTED);
         bundle.putInt(CURRENT_INDEX, 0);
         Intent intent = new Intent(from, BrowseDetailActivity.class);
