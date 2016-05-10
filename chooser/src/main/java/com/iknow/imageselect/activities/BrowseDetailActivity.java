@@ -212,9 +212,16 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             View itemView;
             container.addView(itemView = views.get(position));
             ImageView videoIcon = (ImageView) itemView.findViewById(R.id.video_icon);
-            if(medias.get(position).media.mediaType == 3)
+            final MediaInfo mediaInfo = medias.get(position).media;
+
+            if(mediaInfo.mediaType == 3) {
                 videoIcon.setVisibility(View.VISIBLE);
-            else
+                videoIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override public void onClick(View pView) {
+                        playVideo(mediaInfo);
+                    }
+                });
+            }else
                 videoIcon.setVisibility(View.GONE);
             PhotoDraweeViewUtil.display((PhotoDraweeView) itemView.findViewById(R.id.photo_view), Uri.parse(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName)));
             return itemView;
@@ -229,6 +236,13 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
+    }
+
+    private void playVideo(MediaInfo pMediaInfo) {
+        Uri uri = Uri.parse(pMediaInfo.fileName);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "video/mp4");
+        startActivity(intent);
     }
 
     class BrowseDetailModel implements Serializable {
