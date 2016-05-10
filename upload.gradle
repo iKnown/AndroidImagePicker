@@ -1,19 +1,5 @@
-repositories {
-    flatDir {
-        name "fileRepo"
-        dirs "repo"
-    }
-}
 
 uploadArchives {
-    repositories {
-        add project.repositories.fileRepo
-        ivy {
-            credentials {
-                username "username"
-                password "pw"
-            }
-            url "http://localhost:1148"
-        }
-    }
+    //waiting to upload to jcenter...
 }
+//https://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/enhttps://inthecheesefactory.com/blog/how-to-upload-library-to-jcenter-maven-central-as-dependency/en
