@@ -1,6 +1,7 @@
 package com.iknow.imageselect.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -98,12 +99,14 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
         mSendBtn.setTextAppearance(mContext,R.style.blue_text_18_style);
         mSendBtn.setEnabled(true);
         mPreviewBtn.setEnabled(true);
-        mSendBtn.setTextAppearance(mContext,R.style.blue_text_18_style);
+        mPreviewBtn.setText("预览"+"("+hasCheckedImages.size()+")");
+        mPreviewBtn.setTextColor(Color.parseColor("#ffffff"));
       }else {
         mSendBtn.setEnabled(false);
         mPreviewBtn.setEnabled(false);
+        mPreviewBtn.setText("预览");
         mSendBtn.setTextAppearance(mContext,R.style.gray_text_18_style);
-        mSendBtn.setTextAppearance(mContext,R.style.gray_text_18_style);
+        mPreviewBtn.setTextAppearance(mContext,R.style.gray_text_18_style);
       }
 
     }

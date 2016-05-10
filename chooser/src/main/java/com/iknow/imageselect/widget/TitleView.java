@@ -31,7 +31,7 @@ public class TitleView extends RelativeLayout implements View.OnClickListener{
 	private static final int Title_View_Id = 0x1002;
 	private static final int Right_Btn_View_Id = 0x1003;
 	private static final int DEFAULT_TITLE_HEIGHT = DeviceInforHelper.getPixelFromDip(50);
-	private static final int DEFAULT_ICON_SIZE = DeviceInforHelper.getPixelFromDip(22);
+	private static final int DEFAULT_ICON_SIZE = DeviceInforHelper.getPixelFromDip(24);
 
 	private static final int TITLE_TEXT_DEFAULT_STYLE = R.style.text_18_ffffff;
 	private static final int BTN_TEXT_DEFAULT_STYLE = R.style.text_16_ffffff;

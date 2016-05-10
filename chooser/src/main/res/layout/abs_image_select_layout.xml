@@ -19,7 +19,7 @@
           android:layout_height="50dp"
           android:background="@color/colorPrimaryDark"
           app:title_text_appearance="@style/text_20_ffffff"
-          app:title_btn_left_drawable="@drawable/icon_back"
+          app:title_btn_left_drawable="@drawable/ic_arrow_back"
           app:title_btn_right_text="发送"
           app:title_btn_right_text_appearance="@style/text_16_ffffff"
           app:title_text="全部"/>
