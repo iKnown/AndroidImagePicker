@@ -16,4 +16,14 @@
         android:src="@drawable/ic_play_circle"
     />
 
+    <TextView
+        android:id="@+id/video_size_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        style="@style/text_16_ffffff"
+        android:text="视频大小:2MB"
+    />
 </RelativeLayout>

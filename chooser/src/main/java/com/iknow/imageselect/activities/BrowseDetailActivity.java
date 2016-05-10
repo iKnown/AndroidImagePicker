@@ -212,17 +212,20 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             View itemView;
             container.addView(itemView = views.get(position));
             ImageView videoIcon = (ImageView) itemView.findViewById(R.id.video_icon);
+            TextView videoSizeTv = (TextView) itemView.findViewById(R.id.video_size_tv);
             final MediaInfo mediaInfo = medias.get(position).media;
 
             if(mediaInfo.mediaType == 3) {
-                videoIcon.setVisibility(View.VISIBLE);
+                originalArea.setVisibility(View.GONE);
                 videoIcon.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View pView) {
                         playVideo(mediaInfo);
                     }
                 });
-            }else
-                videoIcon.setVisibility(View.GONE);
+            }
+            videoIcon.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
+            videoSizeTv.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
+
             PhotoDraweeViewUtil.display((PhotoDraweeView) itemView.findViewById(R.id.photo_view), Uri.parse(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName)));
             return itemView;
         }
@@ -241,7 +244,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
     private void playVideo(MediaInfo pMediaInfo) {
         Uri uri = Uri.parse(pMediaInfo.fileName);
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(uri, "video/mp4");
+        intent.setDataAndType(uri, "video/*");
         startActivity(intent);
     }
 
