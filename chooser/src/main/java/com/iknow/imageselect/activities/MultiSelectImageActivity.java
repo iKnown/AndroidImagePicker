@@ -96,7 +96,7 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
       }
 
       if(hasCheckedImages.size() > 0 ) {
-        mSendBtn.setTextAppearance(mContext,R.style.blue_text_18_style);
+        mSendBtn.setTextAppearance(mContext,R.style.text_16_ffffff);
         mSendBtn.setEnabled(true);
         mPreviewBtn.setEnabled(true);
         mPreviewBtn.setText("预览"+"("+hasCheckedImages.size()+")");
@@ -105,8 +105,8 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
         mSendBtn.setEnabled(false);
         mPreviewBtn.setEnabled(false);
         mPreviewBtn.setText("预览");
-        mSendBtn.setTextAppearance(mContext,R.style.gray_text_18_style);
-        mPreviewBtn.setTextAppearance(mContext,R.style.gray_text_18_style);
+        mSendBtn.setTextAppearance(mContext,R.style.gray_text_16);
+        mPreviewBtn.setTextAppearance(mContext,R.style.gray_text_16);
       }
 
     }

@@ -22,16 +22,14 @@
     <item name="android:textColor">#ffffff</item>
   </style>
 
-  <style name="blue_text_18_style">
+  <style name="gray_text_16">
     <item name="android:textSize">16dip</item>
-    <item name="android:textColor">#33bbff</item>
-    <item name="android:textStyle">bold</item>
+    <item name="android:textColor">#999999</item>
   </style>
 
   <style name="gray_text_18_style">
-    <item name="android:textSize">16dip</item>
+    <item name="android:textSize">18dip</item>
     <item name="android:textColor">#999999</item>
-    <item name="android:textStyle">bold</item>
   </style>
 
 </resources>

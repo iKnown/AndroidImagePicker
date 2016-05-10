@@ -126,7 +126,7 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
       }
 
       if(hasCheckedImages.size() > 0 ) {
-        mPreviewBtn.setTextAppearance(mContext,R.style.blue_text_18_style);
+        mPreviewBtn.setTextAppearance(mContext,R.style.text_18_ffffff);
         mPreviewBtn.setEnabled(true);
       }else {
         mPreviewBtn.setTextAppearance(mContext,R.style.gray_text_18_style);

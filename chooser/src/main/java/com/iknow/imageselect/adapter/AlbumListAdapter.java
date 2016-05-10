@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
@@ -17,6 +18,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
+import com.iknow.imageselect.utils.DrawableUtil;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
 import java.util.LinkedList;
 
@@ -57,6 +59,7 @@ public class AlbumListAdapter extends BaseAdapter{
       h.albumCover = (SimpleDraweeView) convertView.findViewById(R.id.album_cover);
       h.albumName = (TextView) convertView.findViewById(R.id.album_name);
       h.albumNumber = (TextView) convertView.findViewById(R.id.album_count);
+      h.chooseIcon = (ImageView) convertView.findViewById(R.id.icon_item_choosen);
       convertView.setTag(h);
     }else{
       h = (ViewHolder) convertView.getTag();
@@ -80,12 +83,14 @@ public class AlbumListAdapter extends BaseAdapter{
     h.albumName.setText(albumInfo.name);
     h.albumNumber.setText(""+albumInfo.medias.size());
 
+    h.chooseIcon.setImageDrawable(DrawableUtil.decodeFromVector(context, R.drawable.ic_radio_button_checked));
     return convertView;
   }
 
   static class ViewHolder{
     SimpleDraweeView albumCover;
     TextView albumName,albumNumber;
+    ImageView chooseIcon;
   }
 }
 

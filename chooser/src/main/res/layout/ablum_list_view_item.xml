@@ -50,4 +50,13 @@
       android:layout_centerVertical="true"
       android:layout_marginRight="10dip"/>
 
+  <ImageView
+      android:id="@+id/icon_item_choosen"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginRight="20dp"
+      android:layout_centerInParent="true"
+      android:layout_alignParentRight="true"
+  />
+
 </RelativeLayout>
