@@ -1,0 +1,14 @@
+apply plugin: 'com.android.application'
+apply from: rootDir.path + '/shared.gradle'
+
+android {
+    defaultConfig {
+        applicationId 'org.iknown'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(":chooser")
+    compile 'com.android.support:appcompat-v7:23.3.0'
+}

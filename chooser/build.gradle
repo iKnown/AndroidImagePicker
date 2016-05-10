@@ -1,0 +1,11 @@
+apply plugin: 'com.android.library'
+apply from: rootDir.path + '/shared.gradle'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.facebook.fresco:fresco:0.10.0'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
+}

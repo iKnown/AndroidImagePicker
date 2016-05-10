@@ -1,1 +1,1 @@
-include ':app', ':photodraweeview'
+include ':chooser', ':application'
