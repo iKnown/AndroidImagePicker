@@ -196,6 +196,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         AlbumInfo albumInfo = (AlbumInfo) adapterView.getItemAtPosition(position);
+        allMedias = albumInfo.medias;
         recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(albumInfo.medias));
         allImagesTv.setText(albumInfo.name);
         gsTitleView.setTitleText(albumInfo.name);
@@ -230,10 +231,10 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
   public class RecyclerAdapter extends RecyclerView.Adapter<ImageSelectViewHolder> {
 
-    private ArrayList<MediaInfo> allMedias;
+    private ArrayList<MediaInfo> albumMedias;
 
     public RecyclerAdapter(ArrayList<MediaInfo> allMedias) {
-      this.allMedias = allMedias;
+      this.albumMedias = allMedias;
     }
 
     @Override public ImageSelectViewHolder onCreateViewHolder(ViewGroup parent, int position) {
@@ -243,12 +244,12 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
     @Override
     public void onBindViewHolder(ImageSelectViewHolder holder, final int position) {
-      MediaInfo mediaInfo = allMedias.get(position);
+      MediaInfo mediaInfo = albumMedias.get(position);
       onBindViewHolderToChild(mediaInfo,holder,position);
     }
 
     @Override public int getItemCount() {
-      return allMedias.size();
+      return albumMedias.size();
     }
 
   }
