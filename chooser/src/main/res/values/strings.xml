@@ -1,5 +1,4 @@
 <resources>
-  <string name="app_name">AndroidImageSelect</string>
   <string name="send">确认</string>
   <string name="choose">选择</string>
   <string name="original">原图</string>
