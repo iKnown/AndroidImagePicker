@@ -9,6 +9,7 @@ import android.text.format.DateFormat;
 import android.widget.Toast;
 import com.iknow.imageselect.activities.AbsImageSelectActivity;
 import com.iknow.imageselect.ZApplication;
+import com.iknow.imageselect.activities.BrowseDetailActivity;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.view.IImageChooseView;
 import java.io.File;
@@ -71,6 +72,8 @@ public class ImageChoosePresenterCompl implements IImageChoosePresenter {
   }
 
   @Override public void doPreview(ArrayList<MediaInfo> hasCheckedImages) {
-    Toast.makeText(context,"图片预览",Toast.LENGTH_SHORT).show();
+    if(hasCheckedImages.isEmpty())
+      return;
+    BrowseDetailActivity.goToBrowseDetailActivitySelected(context,hasCheckedImages);
   }
 }

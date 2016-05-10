@@ -97,8 +97,12 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
       if(hasCheckedImages.size() > 0 ) {
         mSendBtn.setTextAppearance(mContext,R.style.blue_text_18_style);
         mSendBtn.setEnabled(true);
+        mPreviewBtn.setEnabled(true);
+        mSendBtn.setTextAppearance(mContext,R.style.blue_text_18_style);
       }else {
         mSendBtn.setEnabled(false);
+        mPreviewBtn.setEnabled(false);
+        mSendBtn.setTextAppearance(mContext,R.style.gray_text_18_style);
         mSendBtn.setTextAppearance(mContext,R.style.gray_text_18_style);
       }
 

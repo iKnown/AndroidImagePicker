@@ -20,19 +20,19 @@
         >
         <ImageView
             android:id="@+id/select"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="23dip"
+            android:layout_height="23dip"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/img_pic_selected"
+            android:src="@drawable/ic_chosen"
             android:visibility="gone" />
         <ImageView
             android:id="@+id/unselect"
-            android:layout_width="20dip"
-            android:layout_height="20dip"
+            android:layout_width="23dip"
+            android:layout_height="23dip"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/img_pic_unselected"
+            android:src="@drawable/ic_choosable"
             />
     </RelativeLayout>
 

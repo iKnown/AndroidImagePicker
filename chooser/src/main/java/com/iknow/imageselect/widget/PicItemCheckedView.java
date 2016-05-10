@@ -19,7 +19,7 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
   private Context mContext;
   private boolean mChecked;
   private SimpleDraweeView mImgView = null;
-  private ImageView mSelectView,mVideoIcon;
+  private ImageView mSelectView,mUnSelectView,mVideoIcon;
   private View mSelectPanelView;
 
   private static final int columnNum = 3;
@@ -50,8 +50,8 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
         mImgView.setLayoutParams(params);
 
         mSelectView = (ImageView) findViewById(R.id.select);
+        mUnSelectView = (ImageView) findViewById(R.id.unselect);
         if(isHide) {
-          ImageView mUnSelectView = (ImageView) findViewById(R.id.unselect);
           mUnSelectView.setVisibility(View.GONE);
         }
 
@@ -62,6 +62,7 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
     public void setChecked(boolean checked) {
         mChecked = checked;
         mSelectView.setVisibility(checked ? View.VISIBLE : View.GONE);
+        mUnSelectView.setVisibility(checked ? View.GONE : View.VISIBLE);
     }
 
     @Override
