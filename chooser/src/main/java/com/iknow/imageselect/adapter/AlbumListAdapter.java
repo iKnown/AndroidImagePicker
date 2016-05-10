@@ -31,11 +31,12 @@ import java.util.LinkedList;
 public class AlbumListAdapter extends BaseAdapter{
   private LinkedList<AlbumInfo> adapterListData;
   private Context context;
-
-  public AlbumListAdapter(Context context,LinkedList<AlbumInfo> dataList) {
+  private String hasChooseItemName;
+  public AlbumListAdapter(Context context,LinkedList<AlbumInfo> dataList,String itemName) {
     super();
     this.context = context;
     this.adapterListData = dataList;
+    this.hasChooseItemName = itemName;
   }
 
   @Override public int getCount() {
@@ -82,8 +83,11 @@ public class AlbumListAdapter extends BaseAdapter{
 
     h.albumName.setText(albumInfo.name);
     h.albumNumber.setText(""+albumInfo.medias.size());
-
-    h.chooseIcon.setImageDrawable(DrawableUtil.decodeFromVector(context, R.drawable.ic_radio_button_checked));
+    if(hasChooseItemName.equals(albumInfo.name)) {
+      h.chooseIcon.setImageDrawable(DrawableUtil.decodeFromVector(context, R.drawable.ic_radio_button_checked));
+      h.chooseIcon.setVisibility(View.VISIBLE);
+    }else
+      h.chooseIcon.setVisibility(View.GONE);
     return convertView;
   }
 

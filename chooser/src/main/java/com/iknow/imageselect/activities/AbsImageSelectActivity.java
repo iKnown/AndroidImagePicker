@@ -161,7 +161,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
           }
 
           albumLinkedList.addAll(MediaFileUtil.getThumbnailsPhotosInfo(this));
-          albumListView.setAdapter(new AlbumListAdapter(this, albumLinkedList));
+          albumListView.setAdapter(new AlbumListAdapter(this, albumLinkedList,allImagesTv.getText().toString()));
         }catch(Exception e) {
           e.printStackTrace();
         }
