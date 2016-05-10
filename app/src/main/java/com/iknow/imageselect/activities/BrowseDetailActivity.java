@@ -13,18 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.MediaInfo;
+import com.iknow.imageselect.utils.CacheBean;
 import com.iknow.imageselect.utils.DrawableUtil;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.utils.PhotoDraweeViewUtil;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import rawe.gordon.com.photodraweeview.PhotoDraweeView;
 
 /**
@@ -32,6 +29,8 @@ import rawe.gordon.com.photodraweeview.PhotoDraweeView;
  */
 public class BrowseDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String TOKEN = "BrowseDetailActivity";
+    public static final String ALL_MEDIA_LIST = "all_media_list";
     public static final String MEDIA_KEY = "MEDIA_KEY";
     public static final String CHOOSEN_PICS = "CHOOSEN_PICS";
     public static final int CODE_BROWSE_AND_CHOOSE = 0x1128;
@@ -79,7 +78,12 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         if (fromIntent.getExtras() != null) {
             currentIndex = fromIntent.getExtras().getInt(CURRENT_INDEX);
             fromType = fromIntent.getExtras().getString(ENTRY_TYPE);
-            List<MediaInfo> pass = (List<MediaInfo>) fromIntent.getExtras().getSerializable(MEDIA_KEY);
+            List<MediaInfo> pass = (ArrayList<MediaInfo>) CacheBean.getParam(TOKEN,ALL_MEDIA_LIST);
+            if(pass == null){
+                //Say something
+                pass = new ArrayList<>();
+            }
+            CacheBean.clean(TOKEN);
             for (MediaInfo info : pass) {
                 medias.add(fromType.equals(TYPE_EMPTY) ? new BrowseDetailModel(info) : new BrowseDetailModel(true, info));
             }
@@ -275,12 +279,12 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
     }
 
     public static void goToBrowseDetailActivity(Activity from, List<MediaInfo> mediaInfos, int index) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(MEDIA_KEY, (Serializable) mediaInfos);
-        bundle.putString(ENTRY_TYPE, TYPE_EMPTY);
-        bundle.putInt(CURRENT_INDEX, index);
         Intent intent = new Intent(from, BrowseDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(CURRENT_INDEX, index);
+        bundle.putString(ENTRY_TYPE, TYPE_EMPTY);
         intent.putExtras(bundle);
+        CacheBean.putParam(BrowseDetailActivity.TOKEN, BrowseDetailActivity.ALL_MEDIA_LIST, mediaInfos);
         from.startActivityForResult(intent, CODE_BROWSE_AND_CHOOSE);
     }
 
