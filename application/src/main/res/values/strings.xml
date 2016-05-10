@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Application</string>
+    <string name="please_click_to_choose_a_picture">please click to choose a picture...</string>
 </resources>
