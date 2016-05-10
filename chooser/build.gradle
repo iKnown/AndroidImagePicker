@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply from: rootDir.path + '/shared.gradle'
+apply from: rootDir.path + '/upload.gradle'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
