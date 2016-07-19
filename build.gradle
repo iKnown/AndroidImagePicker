@@ -6,10 +6,23 @@ buildscript {
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:2.0.0'
+    classpath 'com.novoda:bintray-release:0.3.4'
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
   }
+}
+
+def libVersion = "1.0.0"
+
+ext {
+  userOrg = "iknow"          //bintray.com用户名
+  groupId = "com.github.iknow4"   //jcenter上的路径
+  publishVersion = libVersion //版本号
+  desc = "It is a android image select lib"//类库的描述
+  website = "https://github.com/iknow4/AndroidImageSelect"//该库在github上对应的链接
+  uploadName = "AndroidImageSelector" //上传在bintray的文件夹
+  licences = ["Apache-2.0"]
 }
 
 allprojects {

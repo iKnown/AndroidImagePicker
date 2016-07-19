@@ -1,0 +1,24 @@
+apply plugin: 'com.android.library'
+apply from: rootDir.path + '/shared.gradle'
+apply plugin: 'com.novoda.bintray-release'
+
+
+publish {
+    artifactId = 'image-selector'//模块名称
+    userOrg = rootProject.userOrg
+    groupId =   rootProject.groupId
+    uploadName = rootProject.uploadName //模块上传后所在的文件夹名称
+    publishVersion = rootProject.publishVersion//模块版本号
+    desc = rootProject.description//模块的描述
+    website = rootProject.website //模块的网站
+    licences = rootProject.licences //模块的licences
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.facebook.fresco:fresco:0.10.0'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
+}
