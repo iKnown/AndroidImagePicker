@@ -18,10 +18,10 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * @Author: J.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月06日 6:38 PM
- * @Description:
+ * Author: J.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月06日 6:38 PM
+ * Description:
  */
 
 public class ImageChoosePresenterCompl implements IImageChoosePresenter {

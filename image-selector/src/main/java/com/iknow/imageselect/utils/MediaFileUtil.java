@@ -21,10 +21,10 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * @Author: J.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月06日 4:24 PM
- * @Description:
+ * Author: J.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月06日 4:24 PM
+ * Description:
  */
 
 public class MediaFileUtil {
@@ -46,8 +46,8 @@ public class MediaFileUtil {
 
 
     /**
-     * @param mContext
-     * @return
+     * param mContext
+     * return
      */
     public static LinkedList<AlbumInfo> getThumbnailsPhotosInfo(Context mContext) {
 
@@ -246,9 +246,9 @@ public class MediaFileUtil {
 
     /**
      * 获取缩略图路径通过图片的id
-     * @param mContext
-     * @param id
-     * @return
+     * param mContext
+     * param id
+     * return
      */
     public static String getThumbPathById(Context mContext, int id) {
 
@@ -322,7 +322,7 @@ public class MediaFileUtil {
 
     /***
      * 获取本机相册所有的图片
-     * @param mContext
+     * param mContext
      */
     public static ArrayList<MediaInfo> getAllImageFiles(Context mContext){
         MediaInfo info;

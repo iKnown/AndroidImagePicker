@@ -19,10 +19,10 @@ import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;
 
 /**
- * @Author: Jason.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月12日 5:02 PM
- * @Description:
+ * Author: Jason.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月12日 5:02 PM
+ * Description:
  */
 public class MultiSelectImageActivity extends AbsImageSelectActivity{
 

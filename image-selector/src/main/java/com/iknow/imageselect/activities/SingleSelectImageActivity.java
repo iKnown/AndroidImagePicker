@@ -15,10 +15,10 @@ import com.iknow.imageselect.widget.TitleView;
 import java.util.ArrayList;
 
 /**
- * @Author: Jason.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月12日 5:03 PM
- * @Description:
+ * Author: Jason.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月12日 5:03 PM
+ * Description:
  */
 public class SingleSelectImageActivity extends AbsImageSelectActivity {
 

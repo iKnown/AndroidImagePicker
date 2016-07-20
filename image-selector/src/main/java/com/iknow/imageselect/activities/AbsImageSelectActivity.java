@@ -34,10 +34,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * @Author: J.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月06日 3:16 PM
- * @Description:
+ * Author: J.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月06日 3:16 PM
+ * Description:
  */
 
 public abstract class AbsImageSelectActivity extends CoreActivity implements IImageChooseView,

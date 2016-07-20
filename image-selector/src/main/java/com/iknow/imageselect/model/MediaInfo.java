@@ -3,10 +3,10 @@ package com.iknow.imageselect.model;
 import java.io.Serializable;
 
 /**
- * @Author: J.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月06日 3:17 PM
- * @Description:
+ * Author: J.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月06日 3:17 PM
+ * Description:
  */
 
 public class MediaInfo implements Serializable,Cloneable {

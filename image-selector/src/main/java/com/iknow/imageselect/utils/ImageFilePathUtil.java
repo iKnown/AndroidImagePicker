@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @Author: J.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月06日 3:46 PM
- * @Description:
+ * Author: J.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月06日 3:46 PM
+ * Description:
  */
 
 public class ImageFilePathUtil {

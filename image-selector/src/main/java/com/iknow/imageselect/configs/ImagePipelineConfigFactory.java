@@ -11,10 +11,10 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import java.io.File;
 
 /**
- * @Author: Jason.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月27日 11:13 AM
- * @Description:
+ * Author: Jason.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月27日 11:13 AM
+ * Description:
  */
 public class ImagePipelineConfigFactory {
 

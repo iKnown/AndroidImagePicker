@@ -5,10 +5,10 @@ import android.util.TypedValue;
 import com.iknow.imageselect.ZApplication;
 
 /**
- * @Author: Jason.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月26日 4:13 PM
- * @Description:
+ * Author: Jason.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月26日 4:13 PM
+ * Description:
  */
 public class DeviceInforHelper {
 

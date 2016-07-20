@@ -5,10 +5,10 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.iknow.imageselect.configs.ImagePipelineConfigFactory;
 
 /**
- * @Author: Jason.Chou
- * @Email: who_know_me@163.com
- * @Created: 2016年04月26日 4:54 PM
- * @Description:
+ * Author: Jason.Chou
+ * Email: who_know_me@163.com
+ * Created: 2016年04月26日 4:54 PM
+ * Description:
  */
 public class ZApplication extends Application{
 
