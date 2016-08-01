@@ -1,62 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:gravity="center_vertical">
 
-  <com.facebook.drawee.view.SimpleDraweeView
-      android:id="@+id/album_cover"
-      android:layout_width="85dip"
-      android:layout_height="85dip"
-      android:layout_margin="15dp"
-      fresco:placeholderImage="@color/colorAccent"
-      android:layout_alignParentLeft="true"
-      android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/album_cover"
+        android:layout_width="85dip"
+        android:layout_height="85dip"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="15dp" />
 
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="10dip"
-      android:layout_toRightOf="@id/album_cover"
-      android:gravity="center_vertical"
-      android:layout_centerVertical="true"
-      android:orientation="vertical" >
-
-    <TextView android:id="@+id/album_name"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textSize="18dp"
-        android:textColor="#333333"
-        android:text="相机胶卷" />
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dip"
+        android:layout_toRightOf="@id/album_cover"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-    <TextView android:id="@+id/album_count"
+        <TextView
+            android:id="@+id/album_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="相机胶卷"
+            android:textColor="#333333"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/album_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="30"
+            android:textColor="#999999"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/album_item_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="16dp"
-        android:textColor="#999999"
-        android:text="30" />
-  </LinearLayout>
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dip" />
 
-  <ImageView
-      android:id="@+id/album_item_img"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
-      android:layout_centerVertical="true"
-      android:layout_marginRight="10dip"/>
-
-  <ImageView
-      android:id="@+id/icon_item_choosen"
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_marginRight="20dp"
-      android:layout_centerInParent="true"
-      android:layout_alignParentRight="true"
-  />
+    <ImageView
+        android:id="@+id/icon_item_choosen"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="20dp" />
 
 </RelativeLayout>

@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <com.facebook.drawee.view.SimpleDraweeView
+    <ImageView
         android:id="@+id/img_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        fresco:placeholderImage="@color/colorAccent"
         android:scaleType="fitXY" />
 
     <RelativeLayout
         android:id="@+id/album_pic_select_panel"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:gravity="center"
         android:layout_gravity="top|right"
-        >
+        android:gravity="center">
+
         <ImageView
             android:id="@+id/select"
             android:layout_width="23dip"
@@ -26,14 +24,14 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_chosen"
             android:visibility="gone" />
+
         <ImageView
             android:id="@+id/unselect"
             android:layout_width="23dip"
             android:layout_height="23dip"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_choosable"
-            />
+            android:src="@drawable/ic_choosable" />
     </RelativeLayout>
 
     <ImageView
@@ -43,6 +41,6 @@
         android:layout_gravity="bottom|left"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dp"
-        android:visibility="gone"
-        android:src="@drawable/video_icon"/>
+        android:src="@drawable/video_icon"
+        android:visibility="gone" />
 </FrameLayout>

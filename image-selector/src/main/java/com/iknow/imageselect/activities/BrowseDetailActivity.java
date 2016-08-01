@@ -19,13 +19,11 @@ import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.CacheBean;
 import com.iknow.imageselect.utils.DrawableUtil;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
-import com.iknow.imageselect.utils.PhotoDraweeViewUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.iknow.imageselect.photodraweeview.PhotoDraweeView;
 
 /**
  * Created by gordon on 5/9/16.
@@ -215,18 +213,18 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             TextView videoSizeTv = (TextView) itemView.findViewById(R.id.video_size_tv);
             final MediaInfo mediaInfo = medias.get(position).media;
 
-            if(mediaInfo.mediaType == 3) {
+            if (mediaInfo.mediaType == 3) {
                 originalArea.setVisibility(View.GONE);
                 videoIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View pView) {
+                    @Override
+                    public void onClick(View pView) {
                         playVideo(mediaInfo);
                     }
                 });
             }
             videoIcon.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
             videoSizeTv.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
-
-            PhotoDraweeViewUtil.display((PhotoDraweeView) itemView.findViewById(R.id.photo_view), Uri.parse(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName)));
+            ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName), (ImageView) itemView.findViewById(R.id.photo_view));
             return itemView;
         }
 

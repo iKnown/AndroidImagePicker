@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.iknow.imageselect.ImageSelectContextHolder;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.adapter.AlbumListAdapter;
@@ -255,7 +254,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
   }
 
   public class ImageSelectViewHolder extends RecyclerView.ViewHolder {
-    public SimpleDraweeView picImageView;
+    public ImageView picImageView;
     public View panelView;
     public ImageView videoIcon;
 
