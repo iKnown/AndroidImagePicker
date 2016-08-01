@@ -26,25 +26,7 @@ import com.iknow.imageselect.widget.TitleView;
  */
 public class MultiSelectImageActivity extends AbsImageSelectActivity{
 
-  // ===========================================================
-  // Constants
-  // ===========================================================
-
-  // ===========================================================
-  // Fields
-  // ===========================================================
   private TextView mSendBtn,mPreviewBtn;
-  // ===========================================================
-  // Constructors
-  // ===========================================================
-
-  // ===========================================================
-  // Getter & Setter
-  // ===========================================================
-
-  // ===========================================================
-  // Methods for/from SuperClass/Interfaces
-  // ===========================================================
 
   @Override
   protected void initTitleView(TitleView titleView) {
@@ -127,12 +109,4 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity{
     MultiSelectImageActivity.this.setResult(RESULT_OK, intent);
     MultiSelectImageActivity.this.finish();
   }
-
-  // ===========================================================
-  // Methods
-  // ===========================================================
-
-  // ===========================================================
-  // Inner and Anonymous Classes
-  // ===========================================================
 }

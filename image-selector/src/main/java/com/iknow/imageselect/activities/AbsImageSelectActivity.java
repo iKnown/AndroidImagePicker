@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.iknow.imageselect.ImageSelectContextHolder;
 import com.iknow.imageselect.R;
-import com.iknow.imageselect.ZApplication;
 import com.iknow.imageselect.adapter.AlbumListAdapter;
 import com.iknow.imageselect.core.CoreActivity;
 import com.iknow.imageselect.model.AlbumInfo;
@@ -94,9 +94,9 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     super.onCreate(savedInstanceState);
     this.mContext = this;
     setContentView(R.layout.abs_image_select_layout);
-    allMedias = MediaFileUtil.getAllMediaFiles(ZApplication.getApplication());
+    allMedias = MediaFileUtil.getAllMediaFiles(ImageSelectContextHolder.getInstance().getContext());
     imageAndVideoAlbums = (ArrayList<MediaInfo>) allMedias.clone();
-    videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ZApplication.getApplication());
+    videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ImageSelectContextHolder.getInstance().getContext());
     imageChoosePresenter = new ImageChoosePresenterCompl(this, this);
     initTitleView(gsTitleView = (TitleView) this.findViewById(R.id.titlebar));
     initBottomView(this.findViewById(R.id.bottomView));
@@ -115,7 +115,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
         final File f = new File(mTakeCameraImagePath);
         if (f == null || !f.exists()) {
-          Toast.makeText(ZApplication.getApplication(), "照相失败", Toast.LENGTH_SHORT).show();
+          Toast.makeText(ImageSelectContextHolder.getInstance().getContext(), "照相失败", Toast.LENGTH_SHORT).show();
           return;
         }
 
@@ -146,7 +146,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
             allAlbumInfo.name = PIC_AND_VIDEO;
             albumLinkedList.add(allAlbumInfo);
           }else {
-            allAlbumInfo.medias = MediaFileUtil.getAllMediaFiles(ZApplication.getApplication());
+            allAlbumInfo.medias = MediaFileUtil.getAllMediaFiles(ImageSelectContextHolder.getInstance().getContext());
             allAlbumInfo.name = PIC_AND_VIDEO;
             albumLinkedList.add(allAlbumInfo);
           }
@@ -155,7 +155,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
             videoAlbumInfo.name = ALL_VIDEO;
             albumLinkedList.add(videoAlbumInfo);
           }else{
-            videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ZApplication.getApplication());
+            videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ImageSelectContextHolder.getInstance().getContext());
             videoAlbumInfo.name = ALL_VIDEO;
             albumLinkedList.add(videoAlbumInfo);
           }

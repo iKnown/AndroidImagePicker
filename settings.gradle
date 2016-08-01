@@ -1,1 +1,1 @@
-include ':image-selector', ':application'
+include ':image-selector', ':application', ':business'
