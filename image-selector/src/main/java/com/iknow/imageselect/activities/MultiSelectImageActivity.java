@@ -1,11 +1,12 @@
 package com.iknow.imageselect.activities;
 
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.TextView;
 
 import com.iknow.imageselect.R;
@@ -24,6 +25,7 @@ import rawe.gordon.com.gordon.loader.GordonLocal;
 public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     private TextView mSendBtn, mPreviewBtn;
+    private boolean isIdle = true;
 
     @Override
     protected void initTitleView(TitleView titleView) {
@@ -50,9 +52,11 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
     @Override
     protected void onBindViewHolderToChild(MediaInfo model, ImageSelectViewHolder holder, int position) {
 //        GordonHttp.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView);
-        if(model.fileName.endsWith(".mp4")) return;
+        if (model.fileName.endsWith(".mp4")) return;
 //        holder.picImageView.setImageBitmap(BitmapFactory.decodeFile(model.fileName));
-        GordonLocal.getInstance().loadBitmap(model.fileName,holder.picImageView);
+        if(isIdle){
+            GordonLocal.getInstance().loadBitmap(model.fileName, holder.picImageView);
+        }
         holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE : View.GONE);
     }
 
@@ -106,5 +110,15 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
         intent.putExtras(bd);
         MultiSelectImageActivity.this.setResult(RESULT_OK, intent);
         MultiSelectImageActivity.this.finish();
+    }
+
+    @Override
+    protected void onScrolling(RecyclerAdapter recyclerAdapter, int state) {
+        if (state == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+            isIdle = true;
+            recyclerAdapter.notifyDataSetChanged();
+        } else {
+            isIdle = false;
+        }
     }
 }

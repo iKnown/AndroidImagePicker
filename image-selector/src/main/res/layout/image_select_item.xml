@@ -7,7 +7,7 @@
         android:id="@+id/img_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:id="@+id/album_pic_select_panel"
