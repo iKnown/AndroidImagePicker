@@ -3,11 +3,8 @@ package rawe.gordon.com.business;
 import android.app.Application;
 
 import com.iknow.imageselect.ImageSelectContextHolder;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+import rawe.gordon.com.gordon.loader.Gordon;
 
 /**
  * Author: Jason.Chou
@@ -27,13 +24,7 @@ public class ZApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApplication = this;
-        int memoryCacheSize = (int) (Runtime.getRuntime().maxMemory() / 10);
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-                .memoryCache(new LRULimitedMemoryCache(memoryCacheSize))
-                .diskCacheFileNameGenerator(new Md5FileNameGenerator())
-                .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .build();
-        ImageLoader.getInstance().init(config);
+        Gordon.getInstance().init(getApplicationContext());
         ImageSelectContextHolder.getInstance().init(getApplicationContext());
     }
 }

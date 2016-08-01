@@ -1,6 +1,7 @@
 package com.iknow.imageselect.activities;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,8 @@ import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;
-import com.nostra13.universalimageloader.core.ImageLoader;
+
+import rawe.gordon.com.gordon.loader.Gordon;
 
 /**
  * Author: Jason.Chou
@@ -48,7 +50,9 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     @Override
     protected void onBindViewHolderToChild(MediaInfo model, ImageSelectViewHolder holder, int position) {
-        ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView);
+//        Gordon.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView);
+        if(model.fileName.endsWith(".mp4")) return;
+        holder.picImageView.setImageBitmap(BitmapFactory.decodeFile(model.fileName));
         holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE : View.GONE);
     }
 

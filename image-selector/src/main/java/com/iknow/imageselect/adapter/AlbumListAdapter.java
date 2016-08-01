@@ -1,6 +1,7 @@
 package com.iknow.imageselect.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +15,10 @@ import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.DrawableUtil;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.LinkedList;
+
+import rawe.gordon.com.gordon.loader.Gordon;
 
 /**
  * Author: Jason.Chou
@@ -73,7 +75,8 @@ public class AlbumListAdapter extends BaseAdapter {
             path = imageInfo.thumbPath;
         }
 
-        ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(path), h.albumCover);
+//        Gordon.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(path), h.albumCover);
+        h.albumCover.setImageBitmap(BitmapFactory.decodeFile(ImageFilePathUtil.getImgUrl(path)));
         h.albumName.setText(albumInfo.name);
         h.albumNumber.setText("" + albumInfo.medias.size());
         if (hasChooseItemName.equals(albumInfo.name)) {
