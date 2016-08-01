@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package rawe.gordon.com.gordon.loader;
+package rawe.gordon.com.gordon.loader.http;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;

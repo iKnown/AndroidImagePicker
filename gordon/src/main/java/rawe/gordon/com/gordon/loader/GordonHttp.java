@@ -34,11 +34,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import rawe.gordon.com.gordon.R;
-import rawe.gordon.com.gordon.loader.utils.MyUtils;
+import rawe.gordon.com.gordon.loader.http.DiskLruCache;
+import rawe.gordon.com.gordon.loader.http.ImageResizeUtil;
+import rawe.gordon.com.gordon.loader.http.Utils;
 
-public class Gordon {
+public class GordonHttp {
 
-    private static final String TAG = "Gordon";
+    private static final String TAG = "GordonHttp";
 
     public static final int MESSAGE_POST_RESULT = 1;
 
@@ -58,7 +60,7 @@ public class Gordon {
         private final AtomicInteger mCount = new AtomicInteger(1);
 
         public Thread newThread(Runnable r) {
-            return new Thread(r, "Gordon#" + mCount.getAndIncrement());
+            return new Thread(r, "GordonHttp#" + mCount.getAndIncrement());
         }
     };
 
@@ -84,7 +86,7 @@ public class Gordon {
     };
 
     private Context mContext;
-    private ImageResizer mImageResizer = new ImageResizer();
+    private ImageResizeUtil mImageResizer = new ImageResizeUtil();
     private LruCache<String, Bitmap> mMemoryCache;
     private DiskLruCache mDiskLruCache;
 
@@ -113,14 +115,14 @@ public class Gordon {
         }
     }
 
-    private Gordon() {
+    private GordonHttp() {
     }
 
     public static class Holder {
-        public static Gordon instance = new Gordon();
+        public static GordonHttp instance = new GordonHttp();
     }
 
-    public static Gordon getInstance() {
+    public static GordonHttp getInstance() {
         return Holder.instance;
     }
 
@@ -282,8 +284,8 @@ public class Gordon {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
-            MyUtils.close(out);
-            MyUtils.close(in);
+            Utils.close(out);
+            Utils.close(in);
         }
         return false;
     }
@@ -305,7 +307,7 @@ public class Gordon {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
-            MyUtils.close(in);
+            Utils.close(in);
         }
         return bitmap;
     }

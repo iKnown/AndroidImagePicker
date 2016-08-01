@@ -1,20 +1,19 @@
-package rawe.gordon.com.gordon.loader.utils;
-
-import java.io.Closeable;
-import java.io.IOException;
-import java.util.List;
+package rawe.gordon.com.gordon.loader.http;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
 
-public class MyUtils {
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.List;
+
+public class Utils {
 
     public static String getProcessName(Context cxt, int pid) {
         ActivityManager am = (ActivityManager) cxt
@@ -67,5 +66,4 @@ public class MyUtils {
     public static void executeInThread(Runnable runnable) {
         new Thread(runnable).start();
     }
-
 }

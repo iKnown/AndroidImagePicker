@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.iknow.imageselect.ImageSelectContextHolder;
 
-import rawe.gordon.com.gordon.loader.Gordon;
+import rawe.gordon.com.gordon.loader.GordonHttp;
 
 /**
  * Author: Jason.Chou
@@ -24,7 +24,7 @@ public class ZApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApplication = this;
-        Gordon.getInstance().init(getApplicationContext());
+        GordonHttp.getInstance().init(getApplicationContext());
         ImageSelectContextHolder.getInstance().init(getApplicationContext());
     }
 }

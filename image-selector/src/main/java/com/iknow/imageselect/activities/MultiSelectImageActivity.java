@@ -10,11 +10,10 @@ import android.widget.TextView;
 
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.MediaInfo;
-import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;
 
-import rawe.gordon.com.gordon.loader.Gordon;
+import rawe.gordon.com.gordon.loader.GordonLocal;
 
 /**
  * Author: Jason.Chou
@@ -50,9 +49,10 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     @Override
     protected void onBindViewHolderToChild(MediaInfo model, ImageSelectViewHolder holder, int position) {
-//        Gordon.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView);
+//        GordonHttp.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView);
         if(model.fileName.endsWith(".mp4")) return;
-        holder.picImageView.setImageBitmap(BitmapFactory.decodeFile(model.fileName));
+//        holder.picImageView.setImageBitmap(BitmapFactory.decodeFile(model.fileName));
+        GordonLocal.getInstance().loadBitmap(model.fileName,holder.picImageView);
         holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE : View.GONE);
     }
 

@@ -18,7 +18,7 @@ import com.iknow.imageselect.utils.ImageFilePathUtil;
 
 import java.util.LinkedList;
 
-import rawe.gordon.com.gordon.loader.Gordon;
+import rawe.gordon.com.gordon.loader.GordonLocal;
 
 /**
  * Author: Jason.Chou
@@ -75,7 +75,7 @@ public class AlbumListAdapter extends BaseAdapter {
             path = imageInfo.thumbPath;
         }
 
-//        Gordon.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(path), h.albumCover);
+        GordonLocal.getInstance().loadBitmap(path, h.albumCover);
         h.albumCover.setImageBitmap(BitmapFactory.decodeFile(ImageFilePathUtil.getImgUrl(path)));
         h.albumName.setText(albumInfo.name);
         h.albumNumber.setText("" + albumInfo.medias.size());
