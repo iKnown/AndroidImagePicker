@@ -6,6 +6,8 @@ import android.widget.ImageView;
 
 import java.lang.ref.WeakReference;
 
+import rawe.gordon.com.gordon.loader.GordonLocal;
+
 /**
  * Created by gordon on 16/8/1.
  */
@@ -31,6 +33,7 @@ public class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
             final ImageView imageView = imageViewReference.get();
             if (imageView != null) {
                 imageView.setImageBitmap(bitmap);
+                imageView.setTag(null);
             }
         }
     }

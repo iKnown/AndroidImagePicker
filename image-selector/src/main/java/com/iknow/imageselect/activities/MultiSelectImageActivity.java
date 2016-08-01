@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -54,9 +55,8 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 //        GordonHttp.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView);
         if (model.fileName.endsWith(".mp4")) return;
 //        holder.picImageView.setImageBitmap(BitmapFactory.decodeFile(model.fileName));
-        if(isIdle){
-            GordonLocal.getInstance().loadBitmap(model.fileName, holder.picImageView);
-        }
+        Log.d("tav",model.fileName);
+        GordonLocal.getInstance().loadBitmap(model.fileName, holder.picImageView);
         holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE : View.GONE);
     }
 
