@@ -24,7 +24,10 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by gordon on 5/9/16.
@@ -114,6 +117,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             }
         });
         viewPager.setCurrentItem(currentIndex);
+        viewPager.setOffscreenPageLimit(10);
         setNavigationText((currentIndex + 1) + "/" + count);
     }
 
@@ -184,12 +188,13 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    class CycleBrowseAdapter extends PagerAdapter {
+    private class CycleBrowseAdapter extends PagerAdapter {
 
-        private List<View> views;
+        PhotoViewAttacher mAttacher;
+        private LinkedList<View> views;
 
         public CycleBrowseAdapter() {
-            views = new ArrayList<>();
+            views = new LinkedList<>();
             for (BrowseDetailModel model : medias) {
                 views.add(getLayoutInflater().inflate(R.layout.layout_photo_view_item, viewPager, false));
             }
@@ -225,8 +230,12 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             }
             videoIcon.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
             videoSizeTv.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
-            ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName), (ImageView) itemView.findViewById(R.id.photo_view),
-                    DisplayOptions.getCacheOptions());
+            ImageView imageView;
+
+            ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName), imageView = (ImageView) itemView.findViewById(R.id.photo_view),
+                    DisplayOptions.getCacheNoneFadeOptions());
+            mAttacher = new PhotoViewAttacher(imageView);
+            mAttacher.update();
             return itemView;
         }
 
@@ -238,6 +247,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
+//            views.set(views.indexOf(object), getLayoutInflater().inflate(R.layout.layout_photo_view_item, viewPager, false));
         }
     }
 

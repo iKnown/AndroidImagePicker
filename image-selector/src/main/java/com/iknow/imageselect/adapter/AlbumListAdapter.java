@@ -75,7 +75,7 @@ public class AlbumListAdapter extends BaseAdapter {
             path = imageInfo.thumbPath;
         }
 
-        ImageLoader.getInstance().displayImage(path, h.albumCover, DisplayOptions.getCacheOptions());
+        ImageLoader.getInstance().displayImage(path, h.albumCover, DisplayOptions.getCacheFadeOptions());
         h.albumCover.setImageBitmap(BitmapFactory.decodeFile(ImageFilePathUtil.getImgUrl(path)));
         h.albumName.setText(albumInfo.name);
         h.albumNumber.setText("" + albumInfo.medias.size());

@@ -2,7 +2,6 @@ package com.iknow.imageselect.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +49,7 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     @Override
     protected void onBindViewHolderToChild(MediaInfo model, ImageSelectViewHolder holder, int position) {
-        ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView, DisplayOptions.getCacheOptions());
+        ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView, DisplayOptions.getCacheFadeOptions());
         holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE : View.GONE);
     }
 
