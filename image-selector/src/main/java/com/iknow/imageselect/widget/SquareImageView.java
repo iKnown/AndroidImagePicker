@@ -11,7 +11,7 @@ import android.widget.ImageView;
  * Created by gordon on 8/2/16.
  */
 public class SquareImageView extends ImageView {
-    private int drawingColor = Color.argb(255, 255, 0, 0);
+    private int drawingColor = Color.argb(255, 101, 198, 187);
 
     public SquareImageView(Context context) {
         super(context);
@@ -37,7 +37,7 @@ public class SquareImageView extends ImageView {
     }
 
     private int getDrawingColor(float alpha) {
-        return Color.argb((int) (alpha * 255), 255, 0, 0);
+        return Color.argb((int) (alpha * 255), 101, 198, 187);
     }
 
     public void disperse(int duration) {
