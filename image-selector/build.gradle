@@ -17,8 +17,8 @@ publish {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':gordon')
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:recyclerview-v7:24.1.1'
-    compile 'com.android.support:cardview-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
 }
