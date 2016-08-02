@@ -11,14 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iknow.imageselect.R;
+import com.iknow.imageselect.display.DisplayOptions;
 import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.DrawableUtil;
 import com.iknow.imageselect.utils.ImageFilePathUtil;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.LinkedList;
-
-import rawe.gordon.com.gordon.loader.GordonLocal;
 
 /**
  * Author: Jason.Chou
@@ -75,7 +75,7 @@ public class AlbumListAdapter extends BaseAdapter {
             path = imageInfo.thumbPath;
         }
 
-        GordonLocal.getInstance().loadBitmap(path, h.albumCover);
+        ImageLoader.getInstance().displayImage(path, h.albumCover, DisplayOptions.getCacheOptions());
         h.albumCover.setImageBitmap(BitmapFactory.decodeFile(ImageFilePathUtil.getImgUrl(path)));
         h.albumName.setText(albumInfo.name);
         h.albumNumber.setText("" + albumInfo.medias.size());

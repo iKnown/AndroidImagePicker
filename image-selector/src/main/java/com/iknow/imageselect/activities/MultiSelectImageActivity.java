@@ -3,19 +3,18 @@ package com.iknow.imageselect.activities;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
 
 import com.iknow.imageselect.R;
+import com.iknow.imageselect.display.DisplayOptions;
 import com.iknow.imageselect.model.MediaInfo;
+import com.iknow.imageselect.utils.ImageFilePathUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.TitleView;
-
-import rawe.gordon.com.gordon.loader.GordonLocal;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Author: Jason.Chou
@@ -52,11 +51,8 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     @Override
     protected void onBindViewHolderToChild(MediaInfo model, ImageSelectViewHolder holder, int position) {
-//        GordonHttp.getInstance().bindBitmap(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView);
         if (model.fileName.endsWith(".mp4")) return;
-//        holder.picImageView.setImageBitmap(BitmapFactory.decodeFile(model.fileName));
-        Log.d("tav",model.fileName);
-        GordonLocal.getInstance().loadBitmap(model.fileName, holder.picImageView);
+        ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView, DisplayOptions.getCacheOptions());
         holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE : View.GONE);
     }
 

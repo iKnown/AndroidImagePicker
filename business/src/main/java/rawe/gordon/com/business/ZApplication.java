@@ -3,8 +3,8 @@ package rawe.gordon.com.business;
 import android.app.Application;
 
 import com.iknow.imageselect.ImageSelectContextHolder;
-
-import rawe.gordon.com.gordon.loader.GordonHttp;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * Author: Jason.Chou
@@ -24,7 +24,7 @@ public class ZApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mApplication = this;
-        GordonHttp.getInstance().init(getApplicationContext());
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(getApplicationContext()));
         ImageSelectContextHolder.getInstance().init(getApplicationContext());
     }
 }
