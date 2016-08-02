@@ -230,12 +230,8 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             }
             videoIcon.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
             videoSizeTv.setVisibility(mediaInfo.mediaType == 3 ? View.VISIBLE : View.GONE);
-            ImageView imageView;
-
-            ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName), imageView = (ImageView) itemView.findViewById(R.id.photo_view),
+            ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(medias.get(position).getMedia().fileName), (ImageView) itemView.findViewById(R.id.photo_view),
                     DisplayOptions.getCacheNoneFadeOptions());
-            mAttacher = new PhotoViewAttacher(imageView);
-            mAttacher.update();
             return itemView;
         }
 
@@ -247,7 +243,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
-//            views.set(views.indexOf(object), getLayoutInflater().inflate(R.layout.layout_photo_view_item, viewPager, false));
+            views.set(views.indexOf(object), getLayoutInflater().inflate(R.layout.layout_photo_view_item, viewPager, false));
         }
     }
 
