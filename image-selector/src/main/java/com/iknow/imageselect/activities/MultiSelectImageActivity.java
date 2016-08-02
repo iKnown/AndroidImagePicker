@@ -2,10 +2,10 @@ package com.iknow.imageselect.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.TextView;
 
 import com.iknow.imageselect.R;
@@ -26,6 +26,7 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     private TextView mSendBtn, mPreviewBtn;
     private boolean isIdle = true;
+    private ColorDrawable defaultDrawble = new ColorDrawable(Color.RED);
 
     @Override
     protected void initTitleView(TitleView titleView) {
@@ -51,7 +52,6 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     @Override
     protected void onBindViewHolderToChild(MediaInfo model, ImageSelectViewHolder holder, int position) {
-        if (model.fileName.endsWith(".mp4")) return;
         ImageLoader.getInstance().displayImage(ImageFilePathUtil.getImgUrl(model.fileName), holder.picImageView, DisplayOptions.getCacheOptions());
         holder.videoIcon.setVisibility(model.mediaType == 3 ? View.VISIBLE : View.GONE);
     }
@@ -106,15 +106,5 @@ public class MultiSelectImageActivity extends AbsImageSelectActivity {
         intent.putExtras(bd);
         MultiSelectImageActivity.this.setResult(RESULT_OK, intent);
         MultiSelectImageActivity.this.finish();
-    }
-
-    @Override
-    protected void onScrolling(RecyclerAdapter recyclerAdapter, int state) {
-        if (state == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-            isIdle = true;
-            recyclerAdapter.notifyDataSetChanged();
-        } else {
-            isIdle = false;
-        }
     }
 }

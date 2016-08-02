@@ -2,6 +2,7 @@ package com.iknow.imageselect.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,12 +21,12 @@ import com.iknow.imageselect.ImageSelectContextHolder;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.adapter.AlbumListAdapter;
 import com.iknow.imageselect.core.CoreActivity;
+import com.iknow.imageselect.display.DisplayOptions;
 import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.presenter.IImageChoosePresenter;
 import com.iknow.imageselect.presenter.ImageChoosePresenterCompl;
 import com.iknow.imageselect.utils.MediaFileUtil;
-import com.iknow.imageselect.view.IImageChooseView;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.SpacesItemDecoration;
 import com.iknow.imageselect.widget.TitleView;
@@ -42,8 +42,7 @@ import java.util.LinkedList;
  * Description:
  */
 
-public abstract class AbsImageSelectActivity extends CoreActivity implements IImageChooseView,
-        View.OnClickListener {
+public abstract class AbsImageSelectActivity extends CoreActivity implements View.OnClickListener {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -86,19 +85,6 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
 
     protected abstract void onCameraActivityResult(String path);
 
-    protected abstract void onScrolling(RecyclerAdapter imageGridAdapter,int state);
-
-    // ===========================================================
-    // Constructors
-    // ===========================================================
-
-    // ===========================================================
-    // Getter & Setter
-    // ===========================================================
-
-    // ===========================================================
-    // Methods for/from SuperClass/Interfaces
-    // ===========================================================
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,16 +93,10 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
         allMedias = MediaFileUtil.getAllMediaFiles(ImageSelectContextHolder.getInstance().getContext());
         imageAndVideoAlbums = (ArrayList<MediaInfo>) allMedias.clone();
         videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ImageSelectContextHolder.getInstance().getContext());
-        imageChoosePresenter = new ImageChoosePresenterCompl(this, this);
+        imageChoosePresenter = new ImageChoosePresenterCompl(this);
         initTitleView(gsTitleView = (TitleView) this.findViewById(R.id.titlebar));
         initBottomView(this.findViewById(R.id.bottomView));
         initContentView();
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                onScrolling(imageGridAdapter,newState);
-            }
-        });
     }
 
 
@@ -192,10 +172,6 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
     }
 
     @Override
-    public void reloadData() {
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         allMedias = null;
@@ -244,10 +220,6 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
         showAlbumList = false;
     }
 
-    // ===========================================================
-    // Inner and Anonymous Classes
-    // ===========================================================
-
     public class RecyclerAdapter extends RecyclerView.Adapter<ImageSelectViewHolder> {
 
         private ArrayList<MediaInfo> albumMedias;
@@ -274,6 +246,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements IIm
         }
 
     }
+
 
     public class ImageSelectViewHolder extends RecyclerView.ViewHolder {
         public ImageView picImageView;

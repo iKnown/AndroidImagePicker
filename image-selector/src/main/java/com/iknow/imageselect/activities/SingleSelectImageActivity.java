@@ -3,7 +3,6 @@ package com.iknow.imageselect.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -141,11 +140,6 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
         intent.putExtras(bd);
         SingleSelectImageActivity.this.setResult(RESULT_OK, intent);
         SingleSelectImageActivity.this.finish();
-    }
-
-    @Override
-    protected void onScrolling(RecyclerAdapter absListView, int state) {
-
     }
 
     private void resetImagesChecked() {
