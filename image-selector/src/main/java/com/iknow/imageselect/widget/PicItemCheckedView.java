@@ -18,11 +18,11 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
 
     private Context mContext;
     private boolean mChecked;
-    private ImageView mImgView = null;
+    private SquareImageView mImgView = null;
     private ImageView mSelectView, mUnSelectView, mVideoIcon;
     private View mSelectPanelView;
 
-    private static final int columnNum = 3;
+//    private static final int columnNum = 3;
 
     public PicItemCheckedView(Context context, boolean isHide) {
         this(context, null, 0, isHide);
@@ -40,14 +40,14 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
         super(context, attrs, defStyle);
         mContext = context;
         LayoutInflater.from(mContext).inflate(R.layout.image_select_item, this);
-        mImgView = (ImageView) findViewById(R.id.img_view);
+        mImgView = (SquareImageView) findViewById(R.id.img_view);
         mVideoIcon = (ImageView) findViewById(R.id.video_icon);
 
-        int size = DeviceInforHelper.getScreenWidth() / columnNum;
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mImgView.getLayoutParams();
-        params.width = size;
-        params.height = size;
-        mImgView.setLayoutParams(params);
+//        int size = DeviceInforHelper.getScreenWidth() / columnNum;
+//        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mImgView.getLayoutParams();
+//        params.width = size;
+//        params.height = size;
+//        mImgView.setLayoutParams(params);
 
         mSelectView = (ImageView) findViewById(R.id.select);
         mUnSelectView = (ImageView) findViewById(R.id.unselect);
@@ -97,7 +97,7 @@ public class PicItemCheckedView extends RelativeLayout implements Checkable {
         return mVideoIcon;
     }
 
-    public ImageView getImageView() {
+    public SquareImageView getImageView() {
         return mImgView;
     }
 

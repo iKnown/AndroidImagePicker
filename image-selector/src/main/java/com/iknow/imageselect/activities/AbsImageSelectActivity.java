@@ -2,7 +2,6 @@ package com.iknow.imageselect.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +20,6 @@ import com.iknow.imageselect.ImageSelectContextHolder;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.adapter.AlbumListAdapter;
 import com.iknow.imageselect.core.CoreActivity;
-import com.iknow.imageselect.display.DisplayOptions;
 import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.presenter.IImageChoosePresenter;
@@ -29,6 +27,7 @@ import com.iknow.imageselect.presenter.ImageChoosePresenterCompl;
 import com.iknow.imageselect.utils.MediaFileUtil;
 import com.iknow.imageselect.widget.PicItemCheckedView;
 import com.iknow.imageselect.widget.SpacesItemDecoration;
+import com.iknow.imageselect.widget.SquareImageView;
 import com.iknow.imageselect.widget.TitleView;
 
 import java.io.File;
@@ -90,7 +89,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements Vie
         super.onCreate(savedInstanceState);
         this.mContext = this;
         setContentView(R.layout.abs_image_select_layout);
-        allMedias = MediaFileUtil.getAllMediaFiles(ImageSelectContextHolder.getInstance().getContext());
+        allMedias = MediaFileUtil.getAllImageFiles(ImageSelectContextHolder.getInstance().getContext());
         imageAndVideoAlbums = (ArrayList<MediaInfo>) allMedias.clone();
         videoAlbumInfo.medias = MediaFileUtil.getAllVideoFiles(ImageSelectContextHolder.getInstance().getContext());
         imageChoosePresenter = new ImageChoosePresenterCompl(this);
@@ -144,7 +143,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements Vie
                         allAlbumInfo.name = PIC_AND_VIDEO;
                         albumLinkedList.add(allAlbumInfo);
                     } else {
-                        allAlbumInfo.medias = MediaFileUtil.getAllMediaFiles(ImageSelectContextHolder.getInstance().getContext());
+                        allAlbumInfo.medias = MediaFileUtil.getAllImageFiles(ImageSelectContextHolder.getInstance().getContext());
                         allAlbumInfo.name = PIC_AND_VIDEO;
                         albumLinkedList.add(allAlbumInfo);
                     }
@@ -249,7 +248,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements Vie
 
 
     public class ImageSelectViewHolder extends RecyclerView.ViewHolder {
-        public ImageView picImageView;
+        public SquareImageView picImageView;
         public View panelView;
         public ImageView videoIcon;
 

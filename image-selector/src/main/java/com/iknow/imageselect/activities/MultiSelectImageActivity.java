@@ -25,8 +25,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 public class MultiSelectImageActivity extends AbsImageSelectActivity {
 
     private TextView mSendBtn, mPreviewBtn;
-    private boolean isIdle = true;
-    private ColorDrawable defaultDrawble = new ColorDrawable(Color.RED);
 
     @Override
     protected void initTitleView(TitleView titleView) {

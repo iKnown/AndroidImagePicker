@@ -11,8 +11,10 @@ import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,20 +31,20 @@ import java.util.Map;
 
 public class MediaFileUtil {
 
-   static String[] projection = {
-        MediaStore.Files.FileColumns._ID,
-        MediaStore.Files.FileColumns.DATA,
-        MediaStore.Files.FileColumns.DATE_ADDED,
-        MediaStore.Files.FileColumns.MEDIA_TYPE,
-        MediaStore.Files.FileColumns.MIME_TYPE,
-        MediaStore.Files.FileColumns.TITLE
+    static String[] projection = {
+            MediaStore.Files.FileColumns._ID,
+            MediaStore.Files.FileColumns.DATA,
+            MediaStore.Files.FileColumns.DATE_ADDED,
+            MediaStore.Files.FileColumns.MEDIA_TYPE,
+            MediaStore.Files.FileColumns.MIME_TYPE,
+            MediaStore.Files.FileColumns.TITLE
     };
 
     static String selection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-        + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
-        + " OR "
-        + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
-        + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
+            + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
+            + " OR "
+            + MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+            + MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
 
 
     /**
@@ -56,7 +58,7 @@ public class MediaFileUtil {
 
         try {
             cursor = mContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null,
-                        null, MediaStore.Images.Media.DEFAULT_SORT_ORDER);
+                    null, MediaStore.Images.Media.DEFAULT_SORT_ORDER);
             if (cursor == null) {
                 return bitmaps;
             }
@@ -72,29 +74,29 @@ public class MediaFileUtil {
         cursor.close();
 
         String key = null;
-        for (Iterator<?> it = albums.entrySet().iterator(); it.hasNext();) {
+        for (Iterator<?> it = albums.entrySet().iterator(); it.hasNext(); ) {
             Map.Entry e = (Map.Entry) it.next();
             LinkedList<MediaInfo> album = (LinkedList<MediaInfo>) e.getValue();
 
             if (album != null && album.size() > 0) {
-              albumInfo = new AlbumInfo();
-              key = (String) e.getKey();
-              albumInfo.name = key.substring(key.lastIndexOf("/") + 1);
+                albumInfo = new AlbumInfo();
+                key = (String) e.getKey();
+                albumInfo.name = key.substring(key.lastIndexOf("/") + 1);
 
-              albumInfo.fileId = album.get(0).fileId;
-              albumInfo.filePath = album.get(0).filePath;
-              ArrayList<MediaInfo> list = new ArrayList<MediaInfo>();
-              for (int i = album.size() - 1; i >= 0; i--) {
-                  list.add(album.get(i));
-              }
-              albumInfo.medias = list;
+                albumInfo.fileId = album.get(0).fileId;
+                albumInfo.filePath = album.get(0).filePath;
+                ArrayList<MediaInfo> list = new ArrayList<MediaInfo>();
+                for (int i = album.size() - 1; i >= 0; i--) {
+                    list.add(album.get(i));
+                }
+                albumInfo.medias = list;
 
-              if (albumInfo.filePath.endsWith("DCIM/Camera")) {
-                albumInfo.name = "相册";
-                  bitmaps.addFirst(albumInfo);
-              } else {
-                  bitmaps.addLast(albumInfo);
-              }
+                if (albumInfo.filePath.endsWith("DCIM/Camera")) {
+                    albumInfo.name = "相册";
+                    bitmaps.addFirst(albumInfo);
+                } else {
+                    bitmaps.addLast(albumInfo);
+                }
 
             }
         }
@@ -102,7 +104,7 @@ public class MediaFileUtil {
         return bitmaps;
     }
 
-    public static HashMap<String, LinkedList<MediaInfo>> getAlbumsInfo(Context mContext,Cursor cursor) {
+    public static HashMap<String, LinkedList<MediaInfo>> getAlbumsInfo(Context mContext, Cursor cursor) {
         HashMap<String, LinkedList<MediaInfo>> albumsInfos = new HashMap<String, LinkedList<MediaInfo>>();
         String _path = MediaStore.Images.Media.DATA;
         String _album = MediaStore.Images.Media.DEFAULT_SORT_ORDER;
@@ -132,14 +134,14 @@ public class MediaFileUtil {
 
                     if (albumsInfos.containsKey(getAlbumKey(subPath, album))) {
                         LinkedList<MediaInfo> albums = albumsInfos
-                            .remove(getAlbumKey(subPath, album));
+                                .remove(getAlbumKey(subPath, album));
                         imageInfo = new MediaInfo();
                         imageInfo.fileId = _id;
                         imageInfo.filePath = subPath;
                         imageInfo.fileName = path;
                         imageInfo.createTime = time;
                         imageInfo.rotate = rotate;
-                        if(thumbInfos.containsKey(_id)){
+                        if (thumbInfos.containsKey(_id)) {
                             imageInfo.thumbPath = thumbInfos.get(_id);
                         }
                         albums.add(imageInfo);
@@ -152,7 +154,7 @@ public class MediaFileUtil {
                         imageInfo.fileName = path;
                         imageInfo.createTime = time;
                         imageInfo.rotate = rotate;
-                        if(thumbInfos.containsKey(_id)){
+                        if (thumbInfos.containsKey(_id)) {
                             imageInfo.thumbPath = thumbInfos.get(_id);
                         }
                         albums.add(imageInfo);
@@ -160,8 +162,8 @@ public class MediaFileUtil {
                     }
                 } while (cursor.moveToNext());
             }
-        }catch(Exception e){
-           e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return albumsInfos;
@@ -201,15 +203,15 @@ public class MediaFileUtil {
                 MediaStore.Images.Thumbnails.MICRO_KIND, options);
     }
 
-    private static HashMap<Integer, String> getThumbImgInfo(Context mContext){
+    private static HashMap<Integer, String> getThumbImgInfo(Context mContext) {
         HashMap<Integer, String> thumbMap = new HashMap<Integer, String>();
 
-        if(mContext == null){
+        if (mContext == null) {
             return thumbMap;
         }
 
-        String[] projection = { MediaStore.Images.Thumbnails._ID, MediaStore.Images.Thumbnails.IMAGE_ID,
-                MediaStore.Images.Thumbnails.DATA };
+        String[] projection = {MediaStore.Images.Thumbnails._ID, MediaStore.Images.Thumbnails.IMAGE_ID,
+                MediaStore.Images.Thumbnails.DATA};
         Cursor cursor = null;
         try {
             cursor = mContext.getContentResolver().query(
@@ -224,19 +226,19 @@ public class MediaFileUtil {
                     image_id = cursor.getInt(image_idColumn);
                     image_path = cursor.getString(dataColumn);
 
-                    if(!new File(image_path).exists()){
+                    if (!new File(image_path).exists()) {
                         continue;
                     }
 
-                    if(!TextUtils.isEmpty(image_path)){
+                    if (!TextUtils.isEmpty(image_path)) {
                         thumbMap.put(image_id, image_path);
                     }
                 } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(cursor != null){
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
@@ -252,14 +254,14 @@ public class MediaFileUtil {
      */
     public static String getThumbPathById(Context mContext, int id) {
 
-        if(mContext == null){
+        if (mContext == null) {
             return null;
         }
 
-        String[] projection = { MediaStore.Images.Thumbnails._ID, MediaStore.Images.Thumbnails.IMAGE_ID,
-                MediaStore.Images.Thumbnails.DATA };
+        String[] projection = {MediaStore.Images.Thumbnails._ID, MediaStore.Images.Thumbnails.IMAGE_ID,
+                MediaStore.Images.Thumbnails.DATA};
 
-        String whereClause = MediaStore.Images.Thumbnails.IMAGE_ID + " = '"+ id + "'";
+        String whereClause = MediaStore.Images.Thumbnails.IMAGE_ID + " = '" + id + "'";
 
         Cursor cursor = mContext.getContentResolver().query(
                 MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI, projection, whereClause, null, null);
@@ -273,12 +275,12 @@ public class MediaFileUtil {
         try {
             if (cursor.moveToFirst()) {
                 int dataColumn = cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA);
-                thumbPath =  cursor.getString(dataColumn);
+                thumbPath = cursor.getString(dataColumn);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            if(cursor != null){
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
@@ -298,7 +300,7 @@ public class MediaFileUtil {
         // colection of results.
         Cursor cursor = mContext.getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                new String[] { MediaStore.Images.Media._ID }, whereClause,
+                new String[]{MediaStore.Images.Media._ID}, whereClause,
                 null, null);
         if (cursor == null || cursor.getCount() == 0) {
             if (cursor != null)
@@ -324,12 +326,12 @@ public class MediaFileUtil {
      * 获取本机相册所有的图片
      * param mContext
      */
-    public static ArrayList<MediaInfo> getAllImageFiles(Context mContext){
+    public static ArrayList<MediaInfo> getAllImageFiles(Context mContext) {
         MediaInfo info;
         ArrayList<MediaInfo> _images = new ArrayList<>();
         try {
             String sortOrder = MediaStore.Images.Media.DATE_MODIFIED + " desc";
-            Cursor cursor = mContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,null, null, null, sortOrder);
+            Cursor cursor = mContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, sortOrder);
             while (cursor.moveToNext()) {
                 info = new MediaInfo();
                 info.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
@@ -338,16 +340,16 @@ public class MediaFileUtil {
                 info.fileId = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.Media._ID));
                 info.lat = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.LATITUDE));
                 info.lon = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.LONGITUDE));
-                if(!TextUtils.isEmpty(info.lat)){
-                    Log.e("jason","info.lat ="+info.lat);
+                if (!TextUtils.isEmpty(info.lat)) {
+                    Log.e("jason", "info.lat =" + info.lat);
                 }
-                if(!TextUtils.isEmpty(info.lon)){
-                    Log.e("jason","info.lon ="+info.lon);
+                if (!TextUtils.isEmpty(info.lon)) {
+                    Log.e("jason", "info.lon =" + info.lon);
                 }
                 _images.add(info);
             }
             cursor.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -355,7 +357,7 @@ public class MediaFileUtil {
 
     }
 
-    public static ArrayList<MediaInfo> getAllVideoFiles(Context mContext){
+    public static ArrayList<MediaInfo> getAllVideoFiles(Context mContext) {
         MediaInfo mediaInfo;
         ArrayList<MediaInfo> videos = new ArrayList<>();
         ContentResolver contentResolver = mContext.getContentResolver();
@@ -378,7 +380,7 @@ public class MediaFileUtil {
         return videos;
     }
 
-    public static ArrayList<MediaInfo> getAllMediaFiles(Context mContext){
+    public static ArrayList<MediaInfo> getAllMediaFiles(Context mContext) {
         MediaInfo mediaInfo;
         ArrayList<MediaInfo> allMediasList = new ArrayList<>();
 
@@ -386,12 +388,12 @@ public class MediaFileUtil {
 
         try {
             CursorLoader cursorLoader = new CursorLoader(
-                mContext,
-                queryUri,
-                projection,
-                selection,
-                null, // Selection args (none).
-                MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
+                    mContext,
+                    queryUri,
+                    projection,
+                    selection,
+                    null, // Selection args (none).
+                    MediaStore.Files.FileColumns.DATE_ADDED + " DESC" // Sort order.
             );
 
             Cursor cursor = cursorLoader.loadInBackground();
@@ -405,7 +407,7 @@ public class MediaFileUtil {
                 allMediasList.add(mediaInfo);
             }
             cursor.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
