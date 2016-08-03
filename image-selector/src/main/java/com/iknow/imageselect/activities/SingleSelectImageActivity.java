@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class SingleSelectImageActivity extends AbsImageSelectActivity {
 
     private ArrayList<PicItemCheckedView> hasCheckedView = new ArrayList<>();
-    private View mCameraIv;
     private TextView mPreviewBtn;
 
     public static void startActivityForResult(Activity context) {
@@ -34,7 +33,6 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
 
     @Override
     protected void initTitleView(TitleView titleView) {
-        this.mCameraIv = titleView.getRBtnView();
         titleView.setOnRightBtnClickListener(new TitleView.OnRightBtnClickListener() {
             @Override
             public void onRBtnClick(View v) {
@@ -47,7 +45,6 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
                 imageChoosePresenter.doCancel();
             }
         });
-
     }
 
     @Override
@@ -85,13 +82,6 @@ public class SingleSelectImageActivity extends AbsImageSelectActivity {
 
             final ImageView iv = view.getImageView();
             iv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-
-            //if (hasCheckedImages.contains(allMedias.get(position))) {
-            //  view.setChecked(true);
-            //} else {
-            //  view.setChecked(false);
-            //}
         } catch (Exception e) {
             e.printStackTrace();
         }

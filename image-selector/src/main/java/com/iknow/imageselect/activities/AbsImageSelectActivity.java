@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.iknow.imageselect.ImageSelectContextHolder;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.adapter.AlbumListAdapter;
-import com.iknow.imageselect.core.CoreActivity;
 import com.iknow.imageselect.model.AlbumInfo;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.presenter.IImageChoosePresenter;
@@ -41,7 +40,7 @@ import java.util.LinkedList;
  * Description:
  */
 
-public abstract class AbsImageSelectActivity extends CoreActivity implements View.OnClickListener {
+public abstract class AbsImageSelectActivity extends AppCompatActivity implements View.OnClickListener {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -67,7 +66,6 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements Vie
     private AlbumInfo videoAlbumInfo = new AlbumInfo();
     private LinkedList<AlbumInfo> albumLinkedList = new LinkedList<>();
     protected IImageChoosePresenter imageChoosePresenter;
-    private RecyclerAdapter imageGridAdapter;
     protected RecyclerView recyclerView;
 
     protected abstract void initTitleView(TitleView titleView);
@@ -191,7 +189,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements Vie
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 AlbumInfo albumInfo = (AlbumInfo) adapterView.getItemAtPosition(position);
                 allMedias = albumInfo.medias;
-                recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(albumInfo.medias));
+                recyclerView.setAdapter(new RecyclerAdapter(albumInfo.medias));
                 allImagesTv.setText(albumInfo.name);
                 gsTitleView.setTitleText(albumInfo.name);
                 hideAlbumListView();
@@ -205,7 +203,7 @@ public abstract class AbsImageSelectActivity extends CoreActivity implements Vie
         GridLayoutManager manager = new GridLayoutManager(this, 3);
         recyclerView.addItemDecoration(new SpacesItemDecoration(5));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(imageGridAdapter = new RecyclerAdapter(allMedias));
+        recyclerView.setAdapter(new RecyclerAdapter(allMedias));
         recyclerView.setLayoutManager(manager);
     }
 

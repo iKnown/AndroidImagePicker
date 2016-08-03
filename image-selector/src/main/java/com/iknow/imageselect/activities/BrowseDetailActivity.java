@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import uk.co.senab.photoview.PhotoViewAttacher;
-
 /**
  * Created by gordon on 5/9/16.
  */
@@ -44,8 +42,6 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
     public static final String TYPE_EMPTY = "TYPE_EMPTY";
     public static String ENTRY_TYPE = "ENTRY_TYPE";
     public static String CURRENT_INDEX = "CURRENT_INDEX";
-
-    private String fromType = TYPE_EMPTY;
 
     private ImageView backImage, orginalImage, chooseImage;
     private View send, backArea, originalArea, chooseArea;
@@ -82,7 +78,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
         Intent fromIntent = getIntent();
         if (fromIntent.getExtras() != null) {
             currentIndex = fromIntent.getExtras().getInt(CURRENT_INDEX);
-            fromType = fromIntent.getExtras().getString(ENTRY_TYPE);
+            String fromType = fromIntent.getExtras().getString(ENTRY_TYPE);
             List<MediaInfo> pass = (ArrayList<MediaInfo>) CacheBean.getParam(TOKEN, ALL_MEDIA_LIST);
             if (pass == null) {
                 //Say something
@@ -94,7 +90,6 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             }
 
         }
-//        medias.addAll(Arrays.asList(new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo()), new BrowseDetailModel(new MediaInfo())));
         count = medias.size();
     }
 
@@ -190,12 +185,11 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
 
     private class CycleBrowseAdapter extends PagerAdapter {
 
-        PhotoViewAttacher mAttacher;
         private LinkedList<View> views;
 
         public CycleBrowseAdapter() {
             views = new LinkedList<>();
-            for (BrowseDetailModel model : medias) {
+            for (int i = 0; i < medias.size(); i++) {
                 views.add(getLayoutInflater().inflate(R.layout.layout_photo_view_item, viewPager, false));
             }
             Log.d("gordon", "views count ->" + views.size());
