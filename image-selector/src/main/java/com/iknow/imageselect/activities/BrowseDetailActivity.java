@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.iknow.imageselect.R;
 import com.iknow.imageselect.model.MediaInfo;
 import com.iknow.imageselect.utils.CacheBean;
@@ -215,10 +216,11 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
             TextView videoSizeTv = (TextView) itemView.findViewById(R.id.video_size_tv);
             final MediaInfo mediaInfo = medias.get(position).media;
 
-            if(mediaInfo.mediaType == 3) {
+            if (mediaInfo.mediaType == 3) {
                 originalArea.setVisibility(View.GONE);
                 videoIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override public void onClick(View pView) {
+                    @Override
+                    public void onClick(View pView) {
                         playVideo(mediaInfo);
                     }
                 });
@@ -237,6 +239,7 @@ public class BrowseDetailActivity extends AppCompatActivity implements View.OnCl
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
+            Glide.clear(((View) object).findViewById(R.id.photo_view));
             container.removeView((View) object);
         }
     }
